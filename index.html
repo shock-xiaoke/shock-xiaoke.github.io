@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张三的个人主page | PhD Student</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- 顶部导航栏 -->
+    <nav class="main-nav">
+        <div class="logo"><strong>San Zhang</strong></div>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="publications.html">发表物</a></li>
+            <li><a href="blog.html">博客 & 生活</a></li>
+        </ul>
+    </nav>
+
+    <!-- 侧边滚动导航 -->
+    <nav class="side-nav">
+        <ul>
+            <li><a href="#profile" class="active"><span>简介</span></a></li>
+            <li><a href="#research-news"><span>研究 & 动态</span></a></li>
+            <li><a href="#publications"><span>发表</span></a></li>
+        </ul>
+    </nav>
+
+    <div class="scroll-container">
+
+        <!-- Section 1: 个人简介 -->
+        <section id="profile" class="scroll-section profile-section fade-in-section">
+            <img src="assets/profile.jpg" alt="San Zhang" class="profile-img">
+            <div class="bio">
+                <h1>你好，我是张三 👋</h1>
+                <p>
+                    我是 <strong>XX大学</strong> 计算机科学专业的博士生，师从 <strong>XX教授</strong>。
+                    我的研究兴趣主要集中在人工智能、深度学习和计算机视觉领域。
+                </p>
+                <p>
+                    我热衷于探索技术的边界，并致力于将前沿技术应用于解决现实世界的问题。
+                </p>
+                <div class="social-links">
+                    <a href="#">GitHub</a> | <a href="#">Google Scholar</a> | <a href="#">Email</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: 研究、动态与教育 -->
+        <section id="research-news" class="scroll-section fade-in-section">
+            <div class="section-content">
+                <h2>🎓 研究与教育</h2>
+                <div class="research-grid">
+                    <div class="research-item">
+                        <h3>最新动态</h3>
+                        <ul class="news-list">
+                            <li><span class="date">[2024.10]</span> 我们的论文 "Title of Your Awesome Paper One" 被 CVPR 2024
+                                接收！</li>
+                            <li><span class="date">[2023.08]</span> 开始在 ABC 公司进行研究实习。</li>
+                            <li><span class="date">[2023.05]</span> 在校园人工智能研讨会上展示了我的最新研究。</li>
+                        </ul>
+                    </div>
+                    <div class="research-item">
+                        <h3>研究方向</h3>
+                        <p>这里是关于你研究方向和兴趣的详细描述。你可以介绍你关注的具体问题、使用的技术和方法，以及你的长期研究目标等。</p>
+                    </div>
+                    <div class="research-item">
+                        <h3>教育背景</h3>
+                        <ul>
+                            <li><strong>2021 - 至今:</strong> 博士, XX大学</li>
+                            <li><strong>2017 - 2021:</strong> 学士, XX大学</li>
+                        </ul>
+                    </div>
+                    <div class="research-item">
+                        <h3>获奖情况</h3>
+                        <ul>
+                            <li><strong>2023:</strong> XX奖学金</li>
+                            <li><strong>2022:</strong> XX编程竞赛一等奖</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: 代表性发表物 -->
+        <section id="publications" class="scroll-section fade-in-section">
+            <div class="section-content">
+                <h2>📚 代表性发表物</h2>
+                <div class="pub-card-horizontal">
+                    <img src="assets/pub1.png" alt="Publication one image" class="pub-img">
+                    <div class="pub-content">
+                        <h3>Title of Your Awesome Paper One</h3>
+                        <p><strong>San Zhang</strong>, Co-author A, Co-author B</p>
+                        <p><em>Conference on Computer Vision and Pattern Recognition (CVPR), 2024</em></p>
+                        <div><a href="#">[PDF]</a> <a href="#">[Code]</a> <a href="#">[Project Page]</a></div>
+                    </div>
+                </div>
+                <div class="pub-card-horizontal">
+                    <img src="assets/pub2.png" alt="Publication two image" class="pub-img">
+                    <div class="pub-content">
+                        <h3>Another Groundbreaking Research Paper</h3>
+                        <p>Co-author C, <strong>San Zhang</strong> (Corresponding Author)</p>
+                        <p><em>Journal of Artificial Intelligence Research (JAIR), 2023</em></p>
+                        <div><a href="#">[PDF]</a> <a href="#">[Code]</a></div>
+                    </div>
+                </div>
+                <p style="margin-top: 20px;"><a href="publications.html">查看所有发表物...</a></p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.scroll-section');
+            const navLinks = document.querySelectorAll('.side-nav a');
+            const scrollContainer = document.querySelector('.scroll-container');
+
+            // 淡入效果观察器
+            const fadeInObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                fadeInObserver.observe(section);
+            });
+
+            // 侧边导航高亮更新
+            const updateActiveNav = () => {
+                let currentSectionId = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (scrollContainer.scrollTop >= sectionTop - section.clientHeight / 3) {
+                        currentSectionId = section.id;
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            scrollContainer.addEventListener('scroll', updateActiveNav);
+            updateActiveNav(); // 初始加载时调用
+        });
+    </script>
+</body>
+
+</html>
