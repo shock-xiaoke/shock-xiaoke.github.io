@@ -1,0 +1,351 @@
+/* === 全局与基础样式 === */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    margin: 0;
+    color: #333;
+    background-color: #f8f9fa;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+    color: #1a2a45;
+    font-weight: 600;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* === 顶部主导航栏 === */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.main-nav .logo {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #1a2a45;
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.main-nav ul li {
+    margin-left: 30px;
+}
+
+.main-nav ul li a {
+    font-size: 1em;
+    font-weight: 500;
+    color: #333;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
+    color: #007bff;
+    border-bottom-color: #007bff;
+}
+
+/* === 首页: 滚动容器与版块 === */
+html {
+    scroll-behavior: smooth;
+}
+
+.scroll-container {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+.scroll-section {
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 5%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* 不同版块的背景色 */
+#profile {
+    background-color: #f8f9fa;
+}
+
+#news {
+    background-color: #ffffff;
+}
+
+#research {
+    background-color: #f8f9fa;
+}
+
+#publications {
+    background-color: #ffffff;
+}
+
+.section-content {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+}
+
+/* === 首页: 侧边导航 === */
+.side-nav {
+    position: fixed;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    z-index: 999;
+}
+
+.side-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-nav li {
+    margin: 15px 0;
+}
+
+.side-nav a {
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-color: #ccc;
+    border-radius: 50%;
+    position: relative;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.side-nav a.active {
+    background-color: #007bff;
+    transform: scale(1.2);
+}
+
+.side-nav a span {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #333;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+}
+
+.side-nav a:hover span {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* === 首页: 各版块具体样式 === */
+/* Profile Section */
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.bio {
+    max-width: 600px;
+}
+
+.social-links {
+    margin-top: 20px;
+}
+
+.social-links a {
+    margin: 0 10px;
+    font-weight: 500;
+}
+
+/* News Section */
+.news-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.news-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.news-list .date {
+    font-weight: bold;
+    color: #007bff;
+    margin-right: 15px;
+}
+
+/* Research Section */
+.research-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    text-align: left;
+    margin-top: 30px;
+}
+
+.research-item ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* === 发表物与博客通用卡片样式 === */
+.pub-card,
+.blog-card {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.pub-card:hover,
+.blog-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-5px);
+}
+
+.pub-card h3,
+.blog-card h3 {
+    margin-top: 0;
+}
+
+.pub-card h3 a,
+.blog-card h3 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* === 博客页面特定样式 === */
+.page-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.blog-card-content .date {
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.blog-card-content .read-more {
+    display: inline-block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* === 照片墙 === */
+.photo-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.photo-item {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.photo-item:hover img {
+    transform: scale(1.1);
+}
+
+/* === 响应式设计 === */
+@media (max-width: 768px) {
+
+    .scroll-section,
+    .profile-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 80px 20px;
+        /* 增加顶部padding以避开导航栏 */
+    }
+
+    .profile-img {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 20px;
+    }
+
+    .main-nav {
+        padding: 10px 20px;
+    }
+
+    .side-nav {
+        display: none;
+        /* 在小屏幕上隐藏侧边导航 */
+    }
+
+    .research-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,32 +1,47 @@
----
-layout: default
-title : Publications
-navbar_title: Publications
-body_attr: >-
-  data-spy="scroll" data-target="#navbar-year" data-offset="100"
----
+<!DOCTYPE html>
+<html lang="zh-CN">
 
-{% assign pubs_by_year = site.publications | sort: "date" | reverse | group_by_exp: "item", "item.date | date: '%Y'" %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发表物 | 张三</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-<div class="row">
-    <div class="col-12 col-lg-10">
-        {% for year in pubs_by_year %}
-        {% assign num_papers = year.items | size %}
-        <h2 class="pt-4" id="year-{{ year.name }}">{{ year.name }}</h2>
-        <div class="my-0 p-0 bg-white shadow-sm rounded-xl">
-            {% for item in year.items %}
-                {% include widgets/publication_item.html item=item hide_bottom_border=forloop.last first=forloop.first last=forloop.last %}
-            {% endfor %}
+<body>
+
+    <nav class="main-nav">
+        <div class="logo"><strong>San Zhang</strong></div>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="publications.html" class="active">发表物</a></li>
+            <li><a href="blog.html">博客 & 生活</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>📚 代表性发表物</h1>
+        <p>这里展示我近年来的研究成果。</p>
+
+        <div class="pub-card">
+            <h3>Title of Your Awesome Paper One</h3>
+            <p><strong>San Zhang</strong>, Co-author A, Co-author B</p>
+            <p><em>Conference on Computer Vision and Pattern Recognition (CVPR), 2024</em></p>
+            <div>
+                <a href="#">[PDF]</a> <a href="#">[Code]</a> <a href="#">[Project Page]</a>
+            </div>
         </div>
-        {% endfor %}
+
+        <div class="pub-card">
+            <h3>Another Groundbreaking Research Paper</h3>
+            <p>Co-author C, <strong>San Zhang</strong> (Corresponding Author)</p>
+            <p><em>Journal of Artificial Intelligence Research (JAIR), 2023</em></p>
+            <div>
+                <a href="#">[PDF]</a> <a href="#">[Code]</a>
+            </div>
+        </div>
     </div>
 
-    <div class="col-2 d-none d-lg-block">
-        <div id="navbar-year" class="nav nav-pills flex-column sticky-top" style="top: 80px">
-            {% for year in pubs_by_year %}
-            <a class="nav-link d-block" href="#year-{{ year.name }}">{{ year.name }}</a>
-            {% endfor %}
-        </div>
-    </div>
+</body>
 
-</div>
+</html>

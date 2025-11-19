@@ -1,37 +1,112 @@
----
-layout: default
-title : Homepage
-navbar_title: Home
----
-{% include widgets/profile_card.html %}
+<!DOCTYPE html>
+<html lang="zh-CN">
 
-{% include widgets/debug_repo_name.html %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张三的个人主page | PhD Student</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-{% include widgets/debug_url.html %}
+<body>
 
-{% if site.data.display.homepage.show_experience %}
-    {% include widgets/experience_card.html %}
-{% endif %}
+    <!-- 顶部导航栏 -->
+    <nav class="main-nav">
+        <div class="logo"><strong>San Zhang</strong></div>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="publications.html">发表物</a></li>
+            <li><a href="blog.html">博客 & 生活</a></li>
+        </ul>
+    </nav>
 
-{% if site.data.display.homepage.show_news %}
-    {% assign count_news = site.news | size %}
-    {% if count_news > 0 %}
-        {% include widgets/news_card.html limit=site.data.display.homepage.num_news %}
-    {% endif %}
-{% endif %}
+    <!-- 侧边滚动导航 -->
+    <nav class="side-nav">
+        <ul>
+            <li><a href="#profile" class="active"><span>简介</span></a></li>
+            <li><a href="#news"><span>动态</span></a></li>
+            <li><a href="#research"><span>研究</span></a></li>
+            <li><a href="#publications"><span>发表</span></a></li>
+        </ul>
+    </nav>
 
-{% if site.data.display.homepage.show_selected_publications %}
-    {% assign pubs = site.publications | sort: "date" | reverse | where: "selected", true %}
-    {% 
-        include widgets/publication_card.html 
-        publications=pubs
-        title='<i class="fas fa-star"></i> Selected Publications'
-    %}
-{% endif %}
+    <div class="scroll-container">
 
-<!-- Clustrmaps 地球仪 -->
-<div style="text-align: center; margin: 20px 0;">
-<div style="width: 150px; height: 150px; margin: 0 auto; overflow: hidden;">
-<script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=w1mdh6vdUiOsXJw0bqtc1DCuWGudBoMjMWGWecBNuD0"></script>
-</div>
-</div>
+        <!-- Section 1: 个人简介 -->
+        <section id="profile" class="scroll-section profile-section">
+            <img src="assets/profile.jpg" alt="San Zhang" class="profile-img">
+            <div class="bio">
+                <h1>你好，我是张三 👋</h1>
+                <p>
+                    我是 <strong>XX大学</strong> 计算机科学专业的博士生，师从 <strong>XX教授</strong>。
+                    我的研究兴趣主要集中在人工智能、深度学习和计算机视觉领域。
+                </p>
+                <p>
+                    我热衷于探索技术的边界，并致力于将前沿技术应用于解决现实世界的问题。
+                </p>
+                <div class="social-links">
+                    <a href="#">GitHub</a> | <a href="#">Google Scholar</a> | <a href="#">Email</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: 最新动态 -->
+        <section id="news" class="scroll-section">
+            <div class="section-content">
+                <h2>💡 最新动态</h2>
+                <ul class="news-list">
+                    <li><span class="date">[2024.10]</span> 我们的论文 "Title of Your Awesome Paper One" 被 CVPR 2024 接收！</li>
+                    <li><span class="date">[2023.08]</span> 开始在 ABC 公司进行研究实习。</li>
+                    <li><span class="date">[2023.05]</span> 在校园人工智能研讨会上展示了我的最新研究。</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: 研究与教育 -->
+        <section id="research" class="scroll-section">
+            <div class="section-content">
+                <h2>🎓 研究与教育</h2>
+                <div class="research-grid">
+                    <div class="research-item">
+                        <h3>教育背景</h3>
+                        <ul>
+                            <li><strong>2021 - 至今:</strong> 博士, XX大学</li>
+                            <li><strong>2017 - 2021:</strong> 学士, XX大学</li>
+                        </ul>
+                    </div>
+                    <div class="research-item">
+                        <h3>获奖情况</h3>
+                        <ul>
+                            <li><strong>2023:</strong> XX奖学金</li>
+                            <li><strong>2022:</strong> XX编程竞赛一等奖</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: 代表性发表物 -->
+        <section id="publications" class="scroll-section">
+            <div class="section-content">
+                <h2>📚 代表性发表物</h2>
+                <div class="pub-card">
+                    <h3>Title of Your Awesome Paper One</h3>
+                    <p><strong>San Zhang</strong>, Co-author A, Co-author B</p>
+                    <p><em>Conference on Computer Vision and Pattern Recognition (CVPR), 2024</em></p>
+                    <div><a href="#">[PDF]</a> <a href="#">[Code]</a> <a href="#">[Project Page]</a></div>
+                </div>
+                <div class="pub-card">
+                    <h3>Another Groundbreaking Research Paper</h3>
+                    <p>Co-author C, <strong>San Zhang</strong> (Corresponding Author)</p>
+                    <p><em>Journal of Artificial Intelligence Research (JAIR), 2023</em></p>
+                    <div><a href="#">[PDF]</a> <a href="#">[Code]</a></div>
+                </div>
+                <p style="margin-top: 20px;"><a href="publications.html">查看所有发表物...</a></p>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+
+</html>
