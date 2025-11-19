@@ -122,19 +122,6 @@
             const navLinks = document.querySelectorAll('.side-nav a');
             const scrollContainer = document.querySelector('.scroll-container');
 
-            // 淡入效果观察器
-            const fadeInObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.fade-in-section').forEach(section => {
-                fadeInObserver.observe(section);
-            });
-
             // --- 语言切换逻辑 ---
             const langSwitcher = document.querySelector('.lang-switcher');
             let currentLang = localStorage.getItem('lang') || 'en'; // 默认英文
