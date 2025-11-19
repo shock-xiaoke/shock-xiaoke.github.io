@@ -4,44 +4,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>发表物 | 张三</title>
+    <title></title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <nav class="main-nav">
-        <div class="logo"><strong>San Zhang</strong></div>
+        <div class="logo" data-lang-key="logo"></div>
         <ul>
-            <li><a href="index.html">首页</a></li>
-            <li><a href="publications.html" class="active">发表物</a></li>
-            <li><a href="blog.html">博客 & 生活</a></li>
+            <li><a href="index.html" data-lang-key="navHome"></a></li>
+            <li><a href="publications.html" class="active" data-lang-key="navPubs"></a></li>
+            <li><a href="blog.html" data-lang-key="navBlog"></a></li>
+            <li class="lang-switcher">
+                <a href="#" class="lang-btn" data-lang-switch="en">EN</a>
+                <span>/</span>
+                <a href="#" class="lang-btn" data-lang-switch="zh">ZH</a>
+            </li>
         </ul>
     </nav>
 
     <div class="container">
-        <h1>📚 代表性发表物</h1>
-        <p>这里展示我近年来的研究成果。</p>
+        <h1 data-lang-key="pubsPageTitle"></h1>
+        <p data-lang-key="pubsPageDesc"></p>
 
         <div class="pub-card">
-            <h3>Title of Your Awesome Paper One</h3>
-            <p><strong>San Zhang</strong>, Co-author A, Co-author B</p>
-            <p><em>Conference on Computer Vision and Pattern Recognition (CVPR), 2024</em></p>
+            <h3 data-lang-key="pub1Title"></h3>
+            <p data-lang-key="pub1Authors"></p>
+            <p data-lang-key="pub1Venue"></p>
             <div>
                 <a href="#">[PDF]</a> <a href="#">[Code]</a> <a href="#">[Project Page]</a>
             </div>
         </div>
 
         <div class="pub-card">
-            <h3>Another Groundbreaking Research Paper</h3>
-            <p>Co-author C, <strong>San Zhang</strong> (Corresponding Author)</p>
-            <p><em>Journal of Artificial Intelligence Research (JAIR), 2023</em></p>
+            <h3 data-lang-key="pub2Title"></h3>
+            <p data-lang-key="pub2Authors"></p>
+            <p data-lang-key="pub2Venue"></p>
             <div>
                 <a href="#">[PDF]</a> <a href="#">[Code]</a>
             </div>
         </div>
     </div>
 
+    <script src="translations.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langSwitcher = document.querySelector('.lang-switcher');
+            let currentLang = localStorage.getItem('lang') || 'en';
+
+            const setLanguage = (lang) => {
+                currentLang = lang;
+                localStorage.setItem('lang', lang);
+                document.documentElement.lang = lang;
+
+                document.querySelectorAll('[data-lang-key]').forEach(el => {
+                    const key = el.getAttribute('data-lang-key');
+                    if (translations[lang] && translations[lang][key]) {
+                        el.innerHTML = translations[lang][key];
+                    }
+                });
+                document.title = translations[lang].title.replace('Homepage', 'Publications');
+            };
+
+            langSwitcher.addEventListener('click', (e) => {
+                e.preventDefault();
+                const lang = e.target.getAttribute('data-lang-switch');
+                if (lang && lang !== currentLang) {
+                    setLanguage(lang);
+                }
+            });
+
+            setLanguage(currentLang);
+        });
+    </script>
 </body>
 
 </html>

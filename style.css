@@ -27,7 +27,8 @@ a:hover {
 .container {
     max-width: 960px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 100px 20px 40px;
+    /* 增加顶部padding以避开导航栏 */
 }
 
 /* === 顶部主导航栏 === */
@@ -73,6 +74,23 @@ a:hover {
     transition: border-color 0.3s;
 }
 
+/* 语言切换器样式 */
+.lang-switcher {
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.lang-switcher span {
+    color: #ccc;
+    margin: 0 5px;
+}
+
+.lang-switcher .lang-btn {
+    font-weight: 500;
+    color: #6c757d;
+}
+
 .main-nav ul li a:hover,
 .main-nav ul li a.active {
     color: #007bff;
@@ -103,19 +121,24 @@ html {
 
 /* 不同版块的背景色 */
 #profile {
-    background-color: #f8f9fa;
+    background-color: #f0f4f8;
 }
 
-#news {
+#research-news {
     background-color: #ffffff;
-}
-
-#research {
-    background-color: #f8f9fa;
+    background-image:
+        linear-gradient(45deg, #eef2f7 25%, transparent 25%),
+        linear-gradient(-45deg, #eef2f7 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #eef2f7 75%),
+        linear-gradient(-45deg, transparent 75%, #eef2f7 75%);
+    background-size: 20px 20px;
 }
 
 #publications {
-    background-color: #ffffff;
+    background-color: #f0f4f8;
+    background-image: radial-gradient(#dce5ef 15%, transparent 15%);
+    background-position: 0 0, 30px 30px;
+    background-size: 60px 60px;
 }
 
 .section-content {
@@ -128,7 +151,7 @@ html {
 .side-nav {
     position: fixed;
     top: 50%;
-    right: 30px;
+    left: 40px;
     transform: translateY(-50%);
     z-index: 999;
 }
@@ -140,42 +163,38 @@ html {
 }
 
 .side-nav li {
-    margin: 15px 0;
+    margin-bottom: 20px;
 }
 
 .side-nav a {
-    display: block;
-    width: 12px;
-    height: 12px;
-    background-color: #ccc;
+    display: flex;
+    align-items: center;
+    color: #6c757d;
+    font-weight: 500;
+    transition: color 0.3s;
+    text-decoration: none;
+    min-width: 120px;
+    /* 保证英文显示不会换行 */
+}
+
+.side-nav a::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #adb5bd;
     border-radius: 50%;
-    position: relative;
+    margin-right: 15px;
     transition: background-color 0.3s, transform 0.3s;
 }
 
 .side-nav a.active {
+    color: #007bff;
+}
+
+.side-nav a.active::before {
     background-color: #007bff;
-    transform: scale(1.2);
-}
-
-.side-nav a span {
-    position: absolute;
-    right: 25px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #333;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 4px;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s;
-}
-
-.side-nav a:hover span {
-    opacity: 1;
-    visibility: visible;
+    transform: scale(1.3);
 }
 
 /* === 首页: 各版块具体样式 === */
@@ -183,6 +202,7 @@ html {
 .profile-section {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 50px;
 }
 
@@ -211,7 +231,7 @@ html {
 .news-list {
     list-style: none;
     padding: 0;
-    text-align: left;
+    text-align: start;
     max-width: 600px;
     margin: 20px auto;
 }
@@ -230,15 +250,58 @@ html {
 /* Research Section */
 .research-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 40px;
-    text-align: left;
+    text-align: start;
     margin-top: 30px;
+}
+
+.research-item p {
+    margin-top: 0;
 }
 
 .research-item ul {
     list-style: none;
     padding: 0;
+}
+
+/* === 首页: 发表物卡片（水平样式） === */
+.pub-card-horizontal {
+    display: flex;
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s, transform 0.3s;
+    overflow: hidden;
+}
+
+.pub-card-horizontal:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.pub-img {
+    width: 200px;
+    height: 140px;
+    object-fit: cover;
+}
+
+.pub-content {
+    padding: 15px 25px;
+}
+
+/* 首页版块淡入动画 */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* === 发表物与博客通用卡片样式 === */
