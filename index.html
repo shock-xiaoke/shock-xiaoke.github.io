@@ -1,190 +1,37 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+---
+layout: default
+title : Homepage
+navbar_title: Home
+---
+{% include widgets/profile_card.html %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 标题将由JS动态设置 -->
-    <title></title>
-    <link rel="stylesheet" href="style.css">
-</head>
+{% include widgets/debug_repo_name.html %}
 
-<body>
+{% include widgets/debug_url.html %}
 
-    <!-- 顶部导航栏 -->
-    <nav class="main-nav">
-        <div class="logo" data-lang-key="logo"></div>
-        <ul>
-            <li><a href="index.html" data-lang-key="navHome"></a></li>
-            <li><a href="publications.html" data-lang-key="navPubs"></a></li>
-            <li><a href="blog.html" data-lang-key="navBlog"></a></li>
-            <li class="lang-switcher">
-                <a href="#" class="lang-btn" data-lang-switch="en">EN</a>
-                <span>/</span>
-                <a href="#" class="lang-btn" data-lang-switch="zh">ZH</a>
-            </li>
-        </ul>
-    </nav>
+{% if site.data.display.homepage.show_experience %}
+    {% include widgets/experience_card.html %}
+{% endif %}
 
-    <!-- 侧边滚动导航 -->
-    <nav class="side-nav">
-        <ul>
-            <li><a href="#profile" class="active" data-lang-key="sideNavProfile"></a></li>
-            <li><a href="#research-news" data-lang-key="sideNavResearch"></a></li>
-            <li><a href="#publications" data-lang-key="sideNavPubs"></a></li>
-        </ul>
-    </nav>
+{% if site.data.display.homepage.show_news %}
+    {% assign count_news = site.news | size %}
+    {% if count_news > 0 %}
+        {% include widgets/news_card.html limit=site.data.display.homepage.num_news %}
+    {% endif %}
+{% endif %}
 
-    <div class="scroll-container">
+{% if site.data.display.homepage.show_selected_publications %}
+    {% assign pubs = site.publications | sort: "date" | reverse | where: "selected", true %}
+    {% 
+        include widgets/publication_card.html 
+        publications=pubs
+        title='<i class="fas fa-star"></i> Selected Publications'
+    %}
+{% endif %}
 
-        <!-- Section 1: 个人简介 -->
-        <section id="profile" class="scroll-section profile-section fade-in-section">
-            <img src="assets/profile.jpg" alt="San Zhang" class="profile-img">
-            <div class="bio">
-                <h1><span data-lang-key="greeting"></span> 👋</h1>
-                <p data-lang-key="bio1"></p>
-                <p data-lang-key="bio2"></p>
-                <p data-lang-key="bio3"></p>
-                <div class="social-links">
-                    <a href="#" data-lang-key="github"></a> | <a href="#" data-lang-key="scholar"></a> | <a href="#"
-                        data-lang-key="email"></a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 2: 研究、动态与教育 -->
-        <section id="research-news" class="scroll-section fade-in-section">
-            <div class="section-content">
-                <h2 data-lang-key="researchTitle"></h2>
-                <div class="research-grid">
-                    <div class="research-item">
-                        <h3 data-lang-key="newsTitle"></h3>
-                        <ul class="news-list">
-                            <li><span class="date">[2024.10]</span> <span data-lang-key="news1"></span></li>
-                            <li><span class="date">[2023.08]</span> <span data-lang-key="news2"></span></li>
-                            <li><span class="date">[2023.05]</span> <span data-lang-key="news3"></span></li>
-                        </ul>
-                    </div>
-                    <div class="research-item">
-                        <h3 data-lang-key="researchInterestsTitle"></h3>
-                        <p data-lang-key="researchInterestsText"></p>
-                    </div>
-                    <div class="research-item">
-                        <h3 data-lang-key="educationTitle"></h3>
-                        <ul>
-                            <li data-lang-key="education1"></li>
-                            <li data-lang-key="education2"></li>
-                        </ul>
-                    </div>
-                    <div class="research-item">
-                        <h3 data-lang-key="awardsTitle"></h3>
-                        <ul>
-                            <li data-lang-key="awards1"></li>
-                            <li data-lang-key="awards2"></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 3: 代表性发表物 -->
-        <section id="publications" class="scroll-section fade-in-section">
-            <div class="section-content">
-                <h2 data-lang-key="pubsTitle"></h2>
-                <div class="pub-card-horizontal">
-                    <img src="assets/pub1.png" alt="Publication one image" class="pub-img">
-                    <div class="pub-content">
-                        <h3 data-lang-key="pub1Title"></h3>
-                        <p data-lang-key="pub1Authors"></p>
-                        <p data-lang-key="pub1Venue"></p>
-                        <div><a href="#">[PDF]</a> <a href="#">[Code]</a> <a href="#">[Project Page]</a></div>
-                    </div>
-                </div>
-                <div class="pub-card-horizontal">
-                    <img src="assets/pub2.png" alt="Publication two image" class="pub-img">
-                    <div class="pub-content">
-                        <h3 data-lang-key="pub2Title"></h3>
-                        <p data-lang-key="pub2Authors"></p>
-                        <p data-lang-key="pub2Venue"></p>
-                        <div><a href="#">[PDF]</a> <a href="#">[Code]</a></div>
-                    </div>
-                </div>
-                <p style="margin-top: 20px;"><a href="publications.html" data-lang-key="viewAllPubs"></a></p>
-            </div>
-        </section>
-
-    </div>
-
-    <script src="translations.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('.scroll-section');
-            const navLinks = document.querySelectorAll('.side-nav a');
-            const scrollContainer = document.querySelector('.scroll-container');
-
-            // --- 语言切换逻辑 ---
-            const langSwitcher = document.querySelector('.lang-switcher');
-            let currentLang = localStorage.getItem('lang') || 'en'; // 默认英文
-
-            const setLanguage = (lang) => {
-                currentLang = lang;
-                localStorage.setItem('lang', lang);
-                document.documentElement.lang = lang;
-
-                document.querySelectorAll('[data-lang-key]').forEach(el => {
-                    const key = el.getAttribute('data-lang-key');
-                    if (translations[lang] && translations[lang][key]) {
-                        el.innerHTML = translations[lang][key];
-                    }
-                });
-                document.title = translations[lang].title;
-            };
-
-            langSwitcher.addEventListener('click', (e) => {
-                e.preventDefault();
-                const lang = e.target.getAttribute('data-lang-switch');
-                if (lang && lang !== currentLang) {
-                    setLanguage(lang);
-                }
-            });
-
-            setLanguage(currentLang); // 初始加载时设置语言
-
-            // --- 滚动与导航逻辑 ---
-            const fadeInObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.fade-in-section').forEach(section => {
-                fadeInObserver.observe(section);
-            });
-
-            // 侧边导航高亮更新
-            const updateActiveNav = () => {
-                let currentSectionId = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (scrollContainer.scrollTop >= sectionTop - section.clientHeight / 3) {
-                        currentSectionId = section.id;
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${currentSectionId}`) {
-                        link.classList.add('active');
-                    }
-                });
-            };
-
-            scrollContainer.addEventListener('scroll', updateActiveNav);
-            updateActiveNav(); // 初始加载时调用
-        });
-    </script>
-</body>
-
-</html>
+<!-- Clustrmaps 地球仪 -->
+<div style="text-align: center; margin: 20px 0;">
+<div style="width: 150px; height: 150px; margin: 0 auto; overflow: hidden;">
+<script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=w1mdh6vdUiOsXJw0bqtc1DCuWGudBoMjMWGWecBNuD0"></script>
+</div>
+</div>
