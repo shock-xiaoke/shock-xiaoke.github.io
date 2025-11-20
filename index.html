@@ -5,33 +5,32 @@ navbar_title: Home
 ---
 {% include widgets/profile_card.html %}
 
-{% include widgets/debug_repo_name.html %}
-
 {% include widgets/debug_url.html %}
 
 {% if site.data.display.homepage.show_experience %}
-    {% include widgets/experience_card.html %}
+{% include widgets/experience_card.html %}
 {% endif %}
 
 {% if site.data.display.homepage.show_news %}
-    {% assign count_news = site.news | size %}
-    {% if count_news > 0 %}
-        {% include widgets/news_card.html limit=site.data.display.homepage.num_news %}
-    {% endif %}
+{% assign count_news = site.news | size %}
+{% if count_news > 0 %}
+{% include widgets/news_card.html limit=site.data.display.homepage.num_news %}
+{% endif %}
 {% endif %}
 
 {% if site.data.display.homepage.show_selected_publications %}
-    {% assign pubs = site.publications | sort: "date" | reverse | where: "selected", true %}
-    {% 
-        include widgets/publication_card.html 
-        publications=pubs
-        title='<i class="fas fa-star"></i> Selected Publications'
-    %}
+{% assign pubs = site.publications | sort: "date" | reverse | where: "selected", true %}
+{%
+include widgets/publication_card.html
+publications=pubs
+title='<i class="fas fa-star"></i> Selected Publications'
+%}
 {% endif %}
 
 <!-- Clustrmaps 地球仪 -->
 <div style="text-align: center; margin: 20px 0;">
-<div style="width: 150px; height: 150px; margin: 0 auto; overflow: hidden;">
-<script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=w1mdh6vdUiOsXJw0bqtc1DCuWGudBoMjMWGWecBNuD0"></script>
-</div>
+    <div style="width: 150px; height: 150px; margin: 0 auto; overflow: hidden;">
+        <script type="text/javascript" id="clstr_globe"
+            src="//clustrmaps.com/globe.js?d=w1mdh6vdUiOsXJw0bqtc1DCuWGudBoMjMWGWecBNuD0"></script>
+    </div>
 </div>
