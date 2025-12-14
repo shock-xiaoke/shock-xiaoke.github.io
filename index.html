@@ -1,0 +1,114 @@
+---
+layout: default
+title: Home
+---
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <span class="hero-pre">Hello, I am</span>
+            <h1 class="hero-title">Ke Xiao.</h1>
+            <p class="hero-desc">
+                PhD Candidate at the University of Glasgow.
+                I research <strong>Federated Learning</strong>, <strong>Edge Computing</strong>, and <strong>LLM
+                    Fine-tuning</strong> to build resilient, distributed AI systems.
+            </p>
+            <div class="hero-cta">
+                <a href="#publications" class="btn">View Research</a>
+                <a href="mailto:{{ site.email }}"
+                    style="margin-left: 20px; border-bottom: 1px solid var(--text-secondary);">Contact Me</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About & Timeline -->
+<section id="about" class="section-pad">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="section-title">About Me</h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
+            <div class="reveal">
+                <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 20px;">
+                    I am currently a PhD student in the <a
+                        href="https://www.gla.ac.uk/schools/computing/research/researchsections/ida-section/knowledgeanddataengineeringsystems/"
+                        class="text-accent">KDES Group</a>, School of Computing Science at the University of Glasgow.
+                </p>
+                <p style="font-size: 1.1rem; color: var(--text-secondary);">
+                    My work focuses on the intersection of distributed systems and machine learning. I strive to solve
+                    availability and security challenges in edge computing environments, recently expanding into robust
+                    fine-tuning of Large Language Models.
+                </p>
+
+                <h3 style="margin-top: 40px; margin-bottom: 20px;">Research Interests</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <span class="badge">Federated Learning</span>
+                    <span class="badge">Edge Computing</span>
+                    <span class="badge">LLM Fine-tuning</span>
+                    <span class="badge">System Resilience</span>
+                    <span class="badge">Byzantine Fault Tolerance</span>
+                </div>
+            </div>
+
+            <div class="reveal">
+                <h3 style="margin-bottom: 30px;">Education</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-date">2024 - Present</span>
+                        <div class="timeline-role">PhD Candidate</div>
+                        <div class="timeline-org">University of Glasgow</div>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">2021 - 2024</span>
+                        <div class="timeline-role">Master of Computer Technology</div>
+                        <div class="timeline-org">Beijing Institute of Technology</div>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">2017 - 2021</span>
+                        <div class="timeline-role">Bachelor of Software Engineering</div>
+                        <div class="timeline-org">Dalian University of Technology</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Selected Publications -->
+<section id="publications" class="section-pad" style="background: rgba(255,255,255,0.01);">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="section-title">Selected Publications</h2>
+            <a href="{{ '/publications.html' | relative_url }}" style="font-size: 1.1rem;">View All &rarr;</a>
+        </div>
+
+        <div class="grid-2">
+            {% assign selected_pubs = site.posts | where: "selected", true %}
+            {% for pub in selected_pubs limit:4 %}
+            <article class="pub-card glass-panel reveal">
+                <div class="pub-year">{{ pub.pub_date }}</div>
+                <h3 class="pub-title"><a href="{{ pub.url | relative_url }}">{{ pub.title }}</a></h3>
+                <div class="pub-authors">
+                    {% for author in pub.authors %}
+                    {% if author == "Ke Xiao" %}
+                    <strong style="color: var(--text-primary)">{{ author }}</strong>
+                    {% else %}
+                    {{ author }}
+                    {% endif %}
+                    {% unless forloop.last %}, {% endunless %}
+                    {% endfor %}
+                </div>
+                <div class="pub-venue">{{ pub.pub }}</div>
+                <div class="pub-links">
+                    {% if pub.pdf %} <a href="{{ pub.pdf }}"><i class="far fa-file-pdf"></i> PDF</a> {% endif %}
+                    {% if pub.code %} <a href="{{ pub.code }}"><i class="fas fa-code"></i> Code</a> {% endif %}
+                    <a href="{{ pub.url | relative_url }}">Details</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
