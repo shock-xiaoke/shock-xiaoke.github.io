@@ -6,8 +6,8 @@
 
     // --- 配置参数 (你可以根据喜好调整这里) ---
     const config = {
-        tileSize: 40,
-        gap: 2,
+        tileSize: 25,
+        gap: 1.75,
         radius: 50,        //稍微加大一点光圈
         baseAlpha: 0,    // 保持这一项，确保背景有隐约的纹理
         highlightAlpha: 0.7, // 鼠标靠近时最亮的透明度
