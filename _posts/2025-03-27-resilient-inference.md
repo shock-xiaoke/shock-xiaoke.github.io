@@ -24,7 +24,7 @@ To address this challenge, we propose a framework, SOIR, which effectively integ
 
 ### Poster / Illustration
 
-<object data="{{ '/assets/images/icdcs_poster_1.pdf' | relative_url }}"
+<object data="{{ '/assets/images/48poster.pdf' | relative_url }}"
         type="application/pdf"
         style="width: 100%; min-height: 720px; display: block; border-radius: 8px; border: 1px solid var(--card-border); background: #0b0b0f;">
   <p style="padding: 16px;">
