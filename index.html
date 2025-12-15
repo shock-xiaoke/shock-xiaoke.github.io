@@ -77,6 +77,45 @@ title: Home
     </div>
 </section>
 
+<!-- News -->
+<section id="news" class="section-pad news-section">
+    <div class="container">
+        <div class="section-header reveal" style="align-items: center;">
+            <h2 class="section-title">News</h2>
+            <span class="news-hint">Recent updates & milestones</span>
+        </div>
+
+        <div class="news-grid">
+            {% assign news_items = site.data.news | sort: 'date' | reverse %}
+
+            {% if news_items and news_items.size > 0 %}
+            {% for item in news_items limit:6 %}
+            <article class="news-card glass-panel reveal">
+                <div class="news-meta">
+                    <span class="news-date">{{ item.date | date: "%b %d, %Y" }}</span>
+                    {% if item.tag %}
+                    <span class="news-tag">{{ item.tag }}</span>
+                    {% endif %}
+                </div>
+                <h3 class="news-title">
+                    {% if item.url %}
+                    <a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a>
+                    {% else %}
+                    {{ item.title }}
+                    {% endif %}
+                </h3>
+                {% if item.description %}
+                <p class="news-desc">{{ item.description }}</p>
+                {% endif %}
+            </article>
+            {% endfor %}
+            {% else %}
+            <p class="news-empty">Stay tuned—updates coming soon.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
 <!-- Selected Publications -->
 <section id="publications" class="section-pad" style="background: rgba(255,255,255,0.01);">
     <div class="container">

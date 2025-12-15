@@ -1,0 +1,22 @@
+-
+  date: 2024-12-10
+  title: Presented our latest federated learning paper at NeurIPS workshop
+  description: Highlighted robustness results for edge-device collaboration under adversarial conditions.
+  tag: Talk
+  url: https://example.com/slides
+-
+  date: 2024-11-18
+  title: Released a lightweight edge training toolkit on GitHub
+  description: Added reproducible scripts for cross-silo experiments and anomaly defenses.
+  tag: Code
+  url: https://github.com/example/repo
+-
+  date: 2024-10-05
+  title: Invited seminar at University of Glasgow on resilient LLM fine-tuning
+  description: Shared practical strategies for guarding against data poisoning during instruction tuning.
+  tag: Seminar
+-
+  date: 2024-09-12
+  title: Paper accepted to IEEE ICDCS 2025
+  description: Focused on Byzantine-robust aggregation across heterogeneous edge devices.
+  tag: Publication
