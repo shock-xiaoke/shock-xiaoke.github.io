@@ -11,10 +11,10 @@ title: Publications
 
         <!-- Filter Placeholder (Functional logic can be added with JS) -->
         <div style="margin-bottom: 40px; display: flex; gap: 15px;">
-            <button class="badge"
+            <button class="badge filter-btn" data-filter="all"
                 style="background: var(--accent); color: black; border: none; font-weight: bold;">All</button>
-            <button class="badge">Journal</button>
-            <button class="badge">Conference</button>
+            <button class="badge filter-btn" data-filter="journal">Journal</button>
+            <button class="badge filter-btn" data-filter="conference">Conference</button>
         </div>
 
         <div class="grid-2">
@@ -22,7 +22,8 @@ title: Publications
             {% assign all_pubs = site.posts | where_exp:"item", "item.pub" | sort: 'date' | reverse %}
 
             {% for pub in all_pubs %}
-            <article class="pub-card glass-panel reveal">
+            {% assign cat = pub.category | default: 'uncategorized' | downcase %}
+            <article class="pub-card glass-panel reveal" data-category="{{ cat }}">
                 <div style="display: flex; justify-content: space-between; align-items: start;">
                     <div class="pub-year">{{ pub.pub_date }}</div>
                     {% if pub.selected %}
@@ -55,3 +56,25 @@ title: Publications
         </div>
     </div>
 </section>
+
+<script>
+    (function () {
+        const buttons = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.pub-card');
+        if (!buttons.length || !cards.length) return;
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                buttons.forEach(b => b.classList.remove('active-filter'));
+                btn.classList.add('active-filter');
+
+                cards.forEach(card => {
+                    const cat = (card.dataset.category || 'uncategorized').toLowerCase();
+                    const show = filter === 'all' || cat === filter;
+                    card.style.display = show ? '' : 'none';
+                });
+            });
+        });
+    })();
+</script>

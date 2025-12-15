@@ -56,6 +56,12 @@ h5 {
 }
 
 /* --- UTILITIES --- */
+.filter-btn.active-filter {
+    background: var(--accent);
+    color: #0b0b0f;
+    border-color: var(--accent);
+}
+
 .glass-panel {
     background: rgba(10, 10, 10, 0.6);
     /* Slightly darker/more opaque */

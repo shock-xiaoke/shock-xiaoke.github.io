@@ -5,6 +5,7 @@ date:           2025-03-27 00:02:00 +0800
 selected:       true
 pub:            "45th IEEE International Conference on Distributed Computing Systems (ICDCS 2025)"
 pub_date:       "2025"
+category: conference
 authors:
 - Ke Xiao
 - Qiyuan Wang
