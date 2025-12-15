@@ -23,4 +23,5 @@ To address this challenge, we propose a framework, SOIR, which effectively integ
 
 ### Poster / Illustration
 
-![Method Illustration](/assets/images/icdcs_poster_1.png)
+<img src="/assets/images/icdcs_poster_1.png" 
+     style="width: 100%; max-width: 100%; height: auto; border-radius: 8px;">
