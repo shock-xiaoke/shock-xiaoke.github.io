@@ -22,7 +22,7 @@ Personalized FL (PFL) enhances traditional FL by tailoring models to the needs o
 Existing methods often ignore the impact of the inherent model differences on inferential tasks leading to suboptimal personalization in EC. 
 To address this challenge, we propose a framework, SOIR, which effectively integrates model similarity into the rescheduling process. The inference task rescheduling problem in EC is formulated with a Mixed Integer Nonlinear Programming (MINLP) model, and an efficient algorithm is introduced to solve it. Our experimental results showcase the applicability and effectiveness of SOIR in FL-based resilient EC environments.
 
-### Poster / Illustration
+### Poster
 
 <object data="{{ '/assets/images/48poster.pdf' | relative_url }}"
         type="application/pdf"
