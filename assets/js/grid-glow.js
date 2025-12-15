@@ -115,8 +115,7 @@
 
                 let targetIntensity = 0;
                 if (dist < config.radius) {
-                    targetIntensity = 1 - (dist / config.radius);
-                    targetIntensity = Math.pow(targetIntensity, 2);
+                    targetIntensity = 1 - dist / config.radius; // 或者你原来的公式
                 } else {
                     targetIntensity = 0;
                 }
