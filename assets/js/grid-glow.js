@@ -120,7 +120,10 @@
 
     // Zones (nav/footer) where glow should be suppressed
     const noGlowZones = ['nav', 'footer', '.navbar'];
-    const isInNoGlowZone = target => noGlowZones.some(sel => target.closest(sel));
+    const isInNoGlowZone = target => {
+        if (!target || typeof target.closest !== 'function') return false;
+        return noGlowZones.some(sel => target.closest(sel));
+    };
     const resetMouse = () => {
         mouse.x = -1000;
         mouse.y = -1000;
