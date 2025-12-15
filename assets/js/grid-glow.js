@@ -121,23 +121,6 @@
                     targetIntensity = 0;
                 }
 
-                // 平滑动画 (Lerp)
-                const index = r * cols + c;
-                let currentIntensity = tiles[index];
-                currentIntensity += (targetIntensity - currentIntensity) * config.smoothness;
-                tiles[index] = currentIntensity;
-
-                // 渲染逻辑
-                // baseAlpha 是基础亮度，currentIntensity * (差值) 是增量
-                const visibleAlpha = config.baseAlpha + (currentIntensity * (config.highlightAlpha - config.baseAlpha));
-
-                // 只有当透明度大于 0.01 时才绘制，节省性能
-                if (visibleAlpha > 0.01) {
-                    ctx.fillStyle = `rgba(${config.color}, ${visibleAlpha})`;
-                    drawRoundedRect(x, y, config.tileSize, config.tileSize, config.borderRadius);
-                    ctx.fill();
-                }
-
                 const tile = tiles[r][c];
                 tile.intensity += (targetIntensity - tile.intensity) * config.smoothness;
 
