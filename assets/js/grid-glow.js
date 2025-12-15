@@ -4,7 +4,6 @@
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-
     // --- 配置参数 (你可以根据喜好调整这里) ---
     const config = {
         tileSize: 15,
@@ -16,10 +15,6 @@
         color: '255, 255, 255', // 方块颜色 (白色)
         borderRadius: 4      // 圆角大小
     };
-
-    const navBar = document.querySelector('.navbar');
-    const footerEl = document.querySelector('footer');
-
 
     let width, height;
     let cols, rows;
@@ -74,67 +69,54 @@
     }
 
     function loop() {
+        // 清空画布 (这一步会让之前的帧消失，露出 body 的深蓝背景)
         ctx.clearRect(0, 0, width, height);
 
         const totalSize = config.tileSize + config.gap;
 
-        // 🔽 每一帧根据当前滚动位置计算：上边界 = 导航栏底部，下边界 = footer 顶部
-        let activeTop = 0;
-        let activeBottom = height;
-
-        if (navBar) {
-            const navRect = navBar.getBoundingClientRect();
-            activeTop = navRect.bottom;   // 只在导航栏下面开始显示
-        }
-
-        if (footerEl) {
-            const footerRect = footerEl.getBoundingClientRect();
-            // 只有 footer 出现在视口内时才当作下边界，否则就让效果延伸到视口底部
-            if (footerRect.top >= 0 && footerRect.top <= height) {
-                activeBottom = footerRect.top;
-            }
-        }
-
         for (let r = 0; r < rows; r++) {
             for (let c = 0; c < cols; c++) {
+
                 const x = c * totalSize + (config.gap / 2);
                 const y = r * totalSize + (config.gap / 2);
 
+                // 计算鼠标距离
                 const centerX = x + config.tileSize / 2;
                 const centerY = y + config.tileSize / 2;
-
-                // 🔽 核心：如果当前小方块不在 activeTop ~ activeBottom 之间，就完全不画
-                if (centerY <= activeTop || centerY >= activeBottom) {
-                    continue;
-                }
-
-                // 下面保持你原来的距离计算 & 亮度过渡逻辑
                 const dx = mouse.x - centerX;
                 const dy = mouse.y - centerY;
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
+                // 计算目标亮度 (0.0 到 1.0)
                 let targetIntensity = 0;
                 if (dist < config.radius) {
-                    targetIntensity = 1 - dist / config.radius; // 或者你原来的公式
-                } else {
-                    targetIntensity = 0;
+                    // 距离越近越亮
+                    targetIntensity = 1 - (dist / config.radius);
+                    // 使用平方让光晕边缘更柔和
+                    targetIntensity = Math.pow(targetIntensity, 2);
                 }
 
-                const tile = tiles[r][c];
-                tile.intensity += (targetIntensity - tile.intensity) * config.smoothness;
+                // 平滑动画 (Lerp)
+                const index = r * cols + c;
+                let currentIntensity = tiles[index];
+                currentIntensity += (targetIntensity - currentIntensity) * config.smoothness;
+                tiles[index] = currentIntensity;
 
-                const alpha = config.baseAlpha +
-                    tile.intensity * (config.highlightAlpha - config.baseAlpha);
+                // 渲染逻辑
+                // baseAlpha 是基础亮度，currentIntensity * (差值) 是增量
+                const visibleAlpha = config.baseAlpha + (currentIntensity * (config.highlightAlpha - config.baseAlpha));
 
-                ctx.fillStyle = `rgba(${config.color}, ${alpha})`;
-                drawRoundedRect(ctx, x, y, config.tileSize, config.tileSize, config.borderRadius);
-                ctx.fill();
+                // 只有当透明度大于 0.01 时才绘制，节省性能
+                if (visibleAlpha > 0.01) {
+                    ctx.fillStyle = `rgba(${config.color}, ${visibleAlpha})`;
+                    drawRoundedRect(x, y, config.tileSize, config.tileSize, config.borderRadius);
+                    ctx.fill();
+                }
             }
         }
 
         requestAnimationFrame(loop);
     }
-
 
     // 事件监听
     window.addEventListener('resize', resize);
