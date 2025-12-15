@@ -27,6 +27,13 @@ body {
     font-family: var(--font-body);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+    z-index: 0;
+}
+
+section {
+    position: relative;
+    z-index: 1;
 }
 
 a {
@@ -49,6 +56,14 @@ h5 {
 }
 
 /* --- UTILITIES --- */
+.glass-panel {
+    background: rgba(10, 10, 10, 0.6);
+    /* Slightly darker/more opaque */
+    backdrop-filter: blur(12px);
+    /* Stronger blur */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .container {
     max-width: var(--container-width);
     margin: 0 auto;

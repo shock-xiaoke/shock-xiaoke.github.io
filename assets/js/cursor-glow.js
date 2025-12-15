@@ -1,131 +1,129 @@
-/* assets/js/cursor-glow.js */
+/* assets/js/grid-glow.js */
 
 (function () {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    // Configuration
+    // --- CONFIGURATION ---
     const config = {
-        particleCount: 25,     // Number of blocks in the cluster
-        baseSize: 6,           // Size of the blocks
-        spread: 40,            // Radius of the loose cluster
-        smoothness: 0.12,      // Movement delay (lower = slower/smoother)
-        color: '255, 255, 255',// RGB of the blocks
+        tileSize: 40,        // Size of each grid square (px)
+        gap: 4,              // Gap between squares (px)
+        radius: 350,         // Radius of the glow effect around cursor
+        baseAlpha: 0.03,     // Opacity of tiles when idle (barely visible)
+        highlightAlpha: 0.6, // Opacity of tiles when fully lit (white)
+        smoothness: 0.1,     // Speed of fade (lower = slower/smoother trail)
+        color: '255, 255, 255', // RGB of the blocks
+        borderRadius: 4      // Corner roundness
     };
 
-    // State
     let width, height;
-    let particles = [];
-    const mouse = { x: -1000, y: -1000 }; // Start off-screen
+    let cols, rows;
+    let mouse = { x: -1000, y: -1000 };
+
+    // We store the current "brightness" of every tile here
+    // to allow for smooth fading animations.
+    let tiles = [];
 
     // Setup Canvas
-    canvas.id = 'cursor-canvas';
+    canvas.id = 'grid-glow-canvas';
     canvas.style.position = 'fixed';
     canvas.style.top = '0';
     canvas.style.left = '0';
     canvas.style.width = '100%';
     canvas.style.height = '100%';
-    canvas.style.pointerEvents = 'none'; // Click-through
-    canvas.style.zIndex = '9999';        // Sit on top of everything
-    canvas.style.mixBlendMode = 'overlay'; // Blend nicely with dark bg
+    canvas.style.pointerEvents = 'none'; // Allow clicks to pass through
+    canvas.style.zIndex = '-1';          // Sit BEHIND content
     document.body.appendChild(canvas);
 
-    // Particle Class
-    class Particle {
-        constructor() {
-            this.x = 0;
-            this.y = 0;
-            // Target offset from mouse center
-            this.ox = (Math.random() - 0.5) * config.spread;
-            this.oy = (Math.random() - 0.5) * config.spread;
-            // Slight size variation
-            this.size = config.baseSize + (Math.random() * 4);
-            // Slight speed variation for depth effect
-            this.friction = config.smoothness + (Math.random() * 0.05);
-            // Opacity based on distance (simulated here via random for setup)
-            this.alpha = 0;
-        }
-
-        update() {
-            // Calculate target position (Mouse + Offset)
-            const targetX = mouse.x + this.ox;
-            const targetY = mouse.y + this.oy;
-
-            // LERP (Linear Interpolation) for smooth following
-            this.x += (targetX - this.x) * this.friction;
-            this.y += (targetY - this.y) * this.friction;
-
-            // Calculate distance to true mouse center for glow intensity
-            const dx = this.x - mouse.x;
-            const dy = this.y - mouse.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            // Bright near center, fade out near edges
-            // Max distance is roughly config.spread / 2
-            this.alpha = 1 - Math.min(dist / (config.spread * 0.8), 1);
-        }
-
-        draw() {
-            ctx.fillStyle = `rgba(${config.color}, ${this.alpha * 0.8})`;
-            ctx.shadowBlur = 10 * this.alpha; // Glow effect
-            ctx.shadowColor = `rgba(${config.color}, ${this.alpha})`;
-
-            ctx.beginPath();
-            // Draw Rounded Rectangle manually
-            const s = this.size;
-            const r = 2; // Corner radius
-            const x = this.x - s / 2;
-            const y = this.y - s / 2;
-
-            ctx.moveTo(x + r, y);
-            ctx.arcTo(x + s, y, x + s, y + s, r);
-            ctx.arcTo(x + s, y + s, x, y + s, r);
-            ctx.arcTo(x, y + s, x, y, r);
-            ctx.arcTo(x, y, x + s, y, r);
-            ctx.closePath();
-
-            ctx.fill();
-        }
-    }
-
-    // Initialization
-    function init() {
-        resize();
-        // Create Particles
-        for (let i = 0; i < config.particleCount; i++) {
-            particles.push(new Particle());
-        }
-        loop();
-    }
-
-    // Render Loop
-    function loop() {
-        ctx.clearRect(0, 0, width, height);
-
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-
-        requestAnimationFrame(loop);
-    }
-
-    // Event Listeners
     function resize() {
         width = window.innerWidth;
         height = window.innerHeight;
         canvas.width = width;
         canvas.height = height;
+
+        // Calculate grid dimensions
+        cols = Math.ceil(width / (config.tileSize + config.gap));
+        rows = Math.ceil(height / (config.tileSize + config.gap));
+
+        // Initialize tile states (brightness 0 initially)
+        tiles = new Float32Array(cols * rows).fill(0);
     }
 
+    function drawRoundedRect(x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+    }
+
+    function loop() {
+        // Clear screen
+        ctx.clearRect(0, 0, width, height);
+
+        const totalSize = config.tileSize + config.gap;
+
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+
+                // Calculate position
+                const x = c * totalSize + (config.gap / 2);
+                const y = r * totalSize + (config.gap / 2);
+
+                // Calculate Distance to Mouse
+                // We use center of tile for accuracy
+                const centerX = x + config.tileSize / 2;
+                const centerY = y + config.tileSize / 2;
+                const dx = mouse.x - centerX;
+                const dy = mouse.y - centerY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                // Calculate Target Intensity (0.0 to 1.0)
+                let targetIntensity = 0;
+                if (dist < config.radius) {
+                    // Map distance to intensity (Close = 1, Edge of radius = 0)
+                    targetIntensity = 1 - (dist / config.radius);
+                    // Make it fall off non-linearly for a nicer "glow" curve
+                    targetIntensity = Math.pow(targetIntensity, 2);
+                }
+
+                // Smooth Animation (Linear Interpolation)
+                // Get current brightness from our array
+                const index = r * cols + c;
+                let currentIntensity = tiles[index];
+
+                // Lerp towards target
+                currentIntensity += (targetIntensity - currentIntensity) * config.smoothness;
+
+                // Update state
+                tiles[index] = currentIntensity;
+
+                // Render
+                // Optimization: Don't draw if it's practically invisible (and close to baseAlpha)
+                const visibleAlpha = config.baseAlpha + (currentIntensity * (config.highlightAlpha - config.baseAlpha));
+
+                if (visibleAlpha > 0.01) {
+                    ctx.fillStyle = `rgba(${config.color}, ${visibleAlpha})`;
+                    drawRoundedRect(x, y, config.tileSize, config.tileSize, config.borderRadius);
+                    ctx.fill();
+                }
+            }
+        }
+
+        requestAnimationFrame(loop);
+    }
+
+    // Event Listeners
+    window.addEventListener('resize', resize);
     window.addEventListener('mousemove', e => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
     });
 
-    window.addEventListener('resize', resize);
-
     // Start
-    init();
+    resize();
+    loop();
 
 })();
