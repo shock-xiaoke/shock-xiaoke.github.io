@@ -6,11 +6,11 @@
 
     // --- 配置参数 (你可以根据喜好调整这里) ---
     const config = {
-        tileSize: 40,        // 方块大小
-        gap: 2,              // 间隙 (改小一点，让方块更密集)
-        radius: 250,         // 鼠标影响的半径 (光晕大小)
-        baseAlpha: 0.05,     // 闲置时的透明度 (0.05 会有隐约的纹理，设为 0 则完全隐形)
-        highlightAlpha: 0.5, // 鼠标靠近时最亮的透明度
+        tileSize: 40,
+        gap: 2,
+        radius: 350,        //稍微加大一点光圈
+        baseAlpha: 0.05,    // 保持这一项，确保背景有隐约的纹理
+        highlightAlpha: 0.4, // 鼠标靠近时最亮的透明度
         smoothness: 0.15,    // 渐变速度 (越大变色越快)
         color: '255, 255, 255', // 方块颜色 (白色)
         borderRadius: 4      // 圆角大小
@@ -32,10 +32,13 @@
     canvas.style.height = '100%';
     canvas.style.pointerEvents = 'none'; // 让鼠标点击能穿透 Canvas
 
-    // --- 关键修改：Z-Index ---
-    // 原来是 -1，被 body 背景遮挡了。改为 0。
-    // 因为你的 CSS 中 section 是 z-index: 1，所以文字依然会浮在方块上面。
-    canvas.style.zIndex = '0';
+    // --- 关键修改：让 Canvas 浮在最上面，但不可点击 ---
+    // 改为极高的层级，确保不被 section 遮挡
+    canvas.style.zIndex = '9999';
+    // 混合模式：Screen (滤色) 会让黑色透明，白色发光，效果最好
+    canvas.style.mixBlendMode = 'screen';
+    // 确保鼠标事件能穿透 Canvas 到达下面的按钮和链接
+    canvas.style.pointerEvents = 'none';
 
     document.body.appendChild(canvas);
 

@@ -61,7 +61,8 @@ layout: default
             <!-- Optional Image -->
             {% if page.cover %}
             <div style="margin-top: 40px; border-radius: 8px; overflow: hidden; border: 1px solid var(--card-border);">
-                <img src="{{ page.cover | relative_url }}" alt="System Figure" style="width: 100%; display: block;">
+                <img src="{{ page.cover | relative_url }}" alt="System Figure"
+                    style="width: 100%; max-width: 100%; height: auto; display: block; object-fit: cover;">
             </div>
             {% endif %}
         </div>
