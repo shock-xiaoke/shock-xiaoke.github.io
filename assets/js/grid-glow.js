@@ -8,9 +8,9 @@
     const config = {
         tileSize: 40,
         gap: 2,
-        radius: 350,        //稍微加大一点光圈
-        baseAlpha: 0.05,    // 保持这一项，确保背景有隐约的纹理
-        highlightAlpha: 0.4, // 鼠标靠近时最亮的透明度
+        radius: 50,        //稍微加大一点光圈
+        baseAlpha: 0,    // 保持这一项，确保背景有隐约的纹理
+        highlightAlpha: 0.7, // 鼠标靠近时最亮的透明度
         smoothness: 0.15,    // 渐变速度 (越大变色越快)
         color: '255, 255, 255', // 方块颜色 (白色)
         borderRadius: 4      // 圆角大小
