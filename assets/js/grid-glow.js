@@ -6,14 +6,14 @@
 
     // --- 配置参数 (你可以根据喜好调整这里) ---
     const config = {
-        tileSize: 10,
-        gap: 1.75,
+        tileSize: 12,
+        gap: 1.55,
         radius: 50,        //稍微加大一点光圈
         baseAlpha: 0,    // 保持这一项，确保背景有隐约的纹理
         highlightAlpha: 0.55, // 鼠标靠近时最亮的透明度
         smoothness: 0.2,    // 渐变速度 (越大变色越快)
         color: '255, 255, 255', // 方块颜色 (白色)
-        borderRadius: 5      // 圆角大小
+        borderRadius: 4      // 圆角大小
     };
 
     let width, height;

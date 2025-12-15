@@ -375,3 +375,40 @@ footer {
         /* 可选：给图片加一点圆角，更好看 */
     }
 }
+
+/* Brighten publication detail page */
+.post-page {
+    position: relative;
+    isolation: isolate;
+}
+
+.post-page::before {
+    content: "";
+    position: absolute;
+    inset: -90px -40px;
+    background:
+        radial-gradient(110% 90% at 50% 15%, rgba(255, 255, 255, 0.12), transparent 55%),
+        radial-gradient(80% 80% at 50% 60%, rgba(212, 255, 0, 0.05), transparent 75%);
+    z-index: -1;
+}
+
+.post-page .glass-panel {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+}
+
+.post-page .glass-panel h1,
+.post-page .glass-panel h3 {
+    color: #f6f8ff;
+}
+
+.post-page .glass-panel p {
+    color: #dfe6ff;
+}
+
+.post-page .glass-panel img {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+}
