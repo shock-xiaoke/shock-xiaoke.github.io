@@ -60,9 +60,17 @@ layout: default
 
             <!-- Optional Image -->
             {% if page.cover %}
-            <div style="margin-top: 40px; border-radius: 8px; overflow: hidden; border: 1px solid var(--card-border);">
+            <div style="
+                margin-top: 40px; 
+                border-radius: 8px; 
+                overflow: hidden; 
+                /* 修改这里：给图片容器一个半透明白底，而不是边框 */
+                background: rgba(255, 255, 255, 0.8); 
+                padding: 20px; /* 给图片留一点内边距，像画框一样 */
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            ">
                 <img src="{{ page.cover | relative_url }}" alt="System Figure"
-                    style="width: 100%; max-width: 100%; height: auto; display: block; object-fit: cover;">
+                    style="width: 100%; max-width: 100%; height: auto; display: block; mix-blend-mode: normal;">
             </div>
             {% endif %}
         </div>

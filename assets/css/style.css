@@ -57,11 +57,16 @@ h5 {
 
 /* --- UTILITIES --- */
 .glass-panel {
-    background: rgba(10, 10, 10, 0.6);
-    /* Slightly darker/more opaque */
+    /* 修改前: background: var(--card-bg); 或 rgba(255, 255, 255, 0.03) */
+
+    /* 修改后: 增加不透明度，使背景呈现深灰色，减少与白底图片的对比 */
+    background: rgba(255, 255, 255, 0.08);
+
+    /* 同时也稍微加强一下边框，让卡片更明显 */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
     backdrop-filter: blur(12px);
-    /* Stronger blur */
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
 }
 
 .container {
