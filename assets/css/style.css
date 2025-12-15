@@ -360,4 +360,18 @@ footer {
     }
 
     /* Mobile menu logic to be added via JS if needed */
+
+    main img,
+    .glass-panel img {
+        max-width: 100%;
+        /* 强制宽度不超过父容器 */
+        height: auto;
+        /* 高度自动适应，保持比例 */
+        display: block;
+        /* 避免图片底部出现莫名的空隙 */
+        margin: 20px auto;
+        /* 上下留空，并且居中显示 */
+        border-radius: 4px;
+        /* 可选：给图片加一点圆角，更好看 */
+    }
 }

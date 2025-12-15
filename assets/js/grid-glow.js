@@ -6,7 +6,7 @@
 
     // --- 配置参数 (你可以根据喜好调整这里) ---
     const config = {
-        tileSize: 25,
+        tileSize: 15,
         gap: 1.75,
         radius: 50,        //稍微加大一点光圈
         baseAlpha: 0,    // 保持这一项，确保背景有隐约的纹理
