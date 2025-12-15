@@ -118,12 +118,25 @@
         requestAnimationFrame(loop);
     }
 
+    // Zones (nav/footer) where glow should be suppressed
+    const noGlowZones = ['nav', 'footer', '.navbar'];
+    const isInNoGlowZone = target => noGlowZones.some(sel => target.closest(sel));
+    const resetMouse = () => {
+        mouse.x = -1000;
+        mouse.y = -1000;
+    };
+
     // 事件监听
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', e => {
+        if (isInNoGlowZone(e.target)) {
+            resetMouse();
+            return;
+        }
         mouse.x = e.clientX;
         mouse.y = e.clientY;
     });
+    window.addEventListener('mouseleave', resetMouse);
 
     // 启动
     resize();
