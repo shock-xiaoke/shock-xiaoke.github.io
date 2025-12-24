@@ -20,29 +20,6 @@
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
 
-<script>
-    const dict = {{ site.data.i18n | jsonify }};
-    const langButtons = document.querySelectorAll('[data-lang-btn]');
-    const transEls = document.querySelectorAll('[data-i18n], [data-en]');
-    function resolveKey(obj, path) { return path.split('.').reduce((o, k) => o?.[k], obj); }
-    function applyLang(lang) {
-        const isCn = lang === 'cn';
-        document.documentElement.lang = isCn ? 'zh' : 'en';
-        localStorage.setItem('lang', lang);
-        langButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.langBtn === lang));
-        transEls.forEach(el => {
-            const key = el.dataset.i18n;
-            const fromDict = key ? resolveKey(dict[lang], key) : null;
-            const fallback = el.dataset[lang];
-            const text = fromDict ?? fallback;
-            if (text) el.innerHTML = text;
-        });
-    }
-    const saved = localStorage.getItem('lang') || 'en';
-    applyLang(saved);
-    langButtons.forEach(btn => btn.addEventListener('click', () => applyLang(btn.dataset.langBtn)));
-</script>
-
 
 <body>
 
@@ -84,6 +61,34 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dict = {{ site.data.i18n | jsonify
+        }};
+        const resolveKey = (obj, path) => path.split('.').reduce((o, k) => o?.[k], obj);
+        const langButtons = document.querySelectorAll('[data-lang-btn]');
+        const transEls = document.querySelectorAll('[data-i18n], [data-en]');
+        if (!langButtons.length) return;
+
+        const applyLang = (lang) => {
+            const isCn = lang === 'cn';
+            document.documentElement.lang = isCn ? 'zh' : 'en';
+            localStorage.setItem('lang', lang);
+            langButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.langBtn === lang));
+            transEls.forEach(el => {
+                const key = el.dataset.i18n;
+                const fromDict = key ? resolveKey(dict[lang], key) : null;
+                const fallback = el.dataset[lang];
+                const text = fromDict ?? fallback;
+                if (text) el.innerHTML = text;
+            });
+        };
+
+        applyLang(localStorage.getItem('lang') || 'en');
+        langButtons.forEach(btn => btn.addEventListener('click', () => applyLang(btn.dataset.langBtn)));
+});
+    </script>
+
     <script>
         // Global Animations
         gsap.registerPlugin(ScrollTrigger);
