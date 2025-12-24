@@ -5,7 +5,7 @@ en:
     cv: "CV"
   hero:
     pre: "Hello, I am"
-    desc: "PhD Candidate at the University of Glasgow.\nI research Federated Learning, Edge Computing, and LLM Fine-tuning..."
+    desc: "PhD Candidate at the University of Glasgow.\nI research Federated Learning, Edge Computing, and LLM Fine-tuning to build resilient, distributed AI systems."
   about:
     title: "About Me"
     interests: "Research Interests"
