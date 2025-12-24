@@ -20,6 +20,30 @@
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
 
+<script>
+    const dict = {{ site.data.i18n | jsonify }};
+    const langButtons = document.querySelectorAll('[data-lang-btn]');
+    const transEls = document.querySelectorAll('[data-i18n], [data-en]');
+    function resolveKey(obj, path) { return path.split('.').reduce((o, k) => o?.[k], obj); }
+    function applyLang(lang) {
+        const isCn = lang === 'cn';
+        document.documentElement.lang = isCn ? 'zh' : 'en';
+        localStorage.setItem('lang', lang);
+        langButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.langBtn === lang));
+        transEls.forEach(el => {
+            const key = el.dataset.i18n;
+            const fromDict = key ? resolveKey(dict[lang], key) : null;
+            const fallback = el.dataset[lang];
+            const text = fromDict ?? fallback;
+            if (text) el.innerHTML = text;
+        });
+    }
+    const saved = localStorage.getItem('lang') || 'en';
+    applyLang(saved);
+    langButtons.forEach(btn => btn.addEventListener('click', () => applyLang(btn.dataset.langBtn)));
+</script>
+
+
 <body>
 
     <!-- Navigation -->
@@ -32,6 +56,10 @@
                 <!-- Placeholder for Blog if you create standard posts later -->
                 <!-- <a href="{{ '/blog.html' | relative_url }}">Blog</a> -->
                 <a href="{{ site.cv_url }}" target="_blank">CV</a>
+            </div>
+            <div class="lang-switch">
+                <button type="button" data-lang-btn="en" class="active">EN</button>
+                <button type="button" data-lang-btn="cn">CN</button>
             </div>
         </div>
     </nav>

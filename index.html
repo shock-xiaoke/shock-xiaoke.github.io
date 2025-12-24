@@ -8,12 +8,9 @@ title: Home
     <div class="container">
         <div class="hero-content">
             <span class="hero-pre">Hello, I am</span>
-            <h1 class="hero-title">Ke Xiao.</h1>
-            <p class="hero-desc">
-                PhD Candidate at the University of Glasgow.<br>
-                I research <strong>Federated Learning</strong>, <strong>Edge Computing</strong>, and <strong>LLM
-                    Fine-tuning</strong> to build resilient, distributed AI systems.
-            </p>
+            <h1 class="hero-title">Ke Xiao.</h1> <!-- stays English -->
+            <span class="hero-pre" data-i18n="hero.pre">{{ site.data.i18n.en.hero.pre }}</span>
+            <p class="hero-desc" data-i18n="hero.desc">{{ site.data.i18n.en.hero.desc }}</p>
             <div class="hero-cta">
                 <a href="#publications" class="btn">View Research</a>
                 <a href="mailto:{{ site.email }}"
@@ -27,7 +24,9 @@ title: Home
 <section id="about" class="section-pad">
     <div class="container">
         <div class="section-header reveal">
-            <h2 class="section-title">About Me</h2>
+            <h2 class="section-title" data-i18n="about.title">{{ site.data.i18n.en.about.title }}</h2>
+
+
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
@@ -46,7 +45,7 @@ title: Home
                     IEEE ICDCS.
                 </p>
 
-                <h3 style="margin-top: 40px; margin-bottom: 20px;">Research Interests</h3>
+                <h3 style="margin-top: 40px;" data-i18n="about.interests">{{ site.data.i18n.en.about.interests }}</h3>
                 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
                     <span class="badge">Federated Learning</span>
                     <span class="badge">Edge Computing</span>
@@ -57,7 +56,8 @@ title: Home
             </div>
 
             <div class="reveal">
-                <h3 style="margin-bottom: 30px;">Education</h3>
+                <h3 style="margin-bottom: 30px;" data-i18n="about.education">{{ site.data.i18n.en.about.education }}
+                </h3>
                 <div class="timeline">
                     <div class="timeline-item">
                         <span class="timeline-date">2024 - Present</span>
@@ -84,8 +84,8 @@ title: Home
 <section id="news" class="section-pad news-section">
     <div class="container">
         <div class="section-header reveal" style="align-items: center;">
-            <h2 class="section-title">News</h2>
-            <span class="news-hint">Recent updates & milestones</span>
+            <h2 class="section-title" data-i18n="news.title">{{ site.data.i18n.en.news.title }}</h2>
+            <span class="news-hint" data-i18n="news.hint">{{ site.data.i18n.en.news.hint }}</span>
         </div>
 
         <div class="news-grid">
@@ -100,16 +100,15 @@ title: Home
                     <span class="news-tag">{{ item.tag }}</span>
                     {% endif %}
                 </div>
-                <h3 class="news-title">
-                    {% if item.url %}
-                    <a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a>
-                    {% else %}
+                <h3 class="news-title" data-en="{{ item.title | escape }}"
+                    data-cn="{{ item.title_cn | default: item.title | escape }}">
                     {{ item.title }}
-                    {% endif %}
                 </h3>
-                {% if item.description %}
-                <p class="news-desc">{{ item.description }}</p>
-                {% endif %}
+                <p class="news-desc" data-en="{{ item.description | escape }}"
+                    data-cn="{{ item.description_cn | default: item.description | escape }}">
+                    {{ item.description }}
+                </p>
+
             </article>
             {% endfor %}
             {% else %}
@@ -123,8 +122,9 @@ title: Home
 <section id="publications" class="section-pad" style="background: rgba(255,255,255,0.01);">
     <div class="container">
         <div class="section-header reveal">
-            <h2 class="section-title">Selected Publications</h2>
-            <a href="{{ '/publications.html' | relative_url }}" style="font-size: 1.1rem;">View All &rarr;</a>
+            <h2 class="section-title" data-i18n="pubs.title">{{ site.data.i18n.en.pubs.title }}</h2>
+            <a href="{{ '/publications.html' | relative_url }}" data-i18n="pubs.view_all">{{
+                site.data.i18n.en.pubs.view_all }}</a>
         </div>
 
         <div class="grid-2">
