@@ -29,7 +29,7 @@ cn:
     cv: "简历"
   hero:
     pre: "你好，我是"
-    desc: "格拉斯哥大学(University of Glasgow)博士生。研究联邦学习、边缘计算与大模型微调，关注分布式 AI 的韧性。"
+    desc: "格拉斯哥大学(University of Glasgow )博士生。研究联邦学习、边缘计算与大模型微调，关注分布式 AI 的韧性。"
   about:
     title: "关于我"
     interests: "研究方向"
