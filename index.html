@@ -3,166 +3,293 @@ layout: default
 title: Home
 ---
 
-<!-- Hero Section -->
-<section class="hero">
-    <div class="container">
-        <div class="hero-content">
-            <span class="hero-pre" data-i18n="hero.pre">{{ site.data.i18n.en.hero.pre }}</span>
-            <h1 class="hero-title">Ke Xiao.</h1> <!-- stays English -->
+{% assign selected_pubs = site.posts | where: "selected", true | sort: "date" | reverse %}
+{% assign featured_pub = selected_pubs.first %}
+{% assign news_items = site.data.news | sort: "date" | reverse %}
+
+<section class="hero hero-home">
+    <div class="hero-glow" data-hero-glow aria-hidden="true"></div>
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <p class="section-kicker" data-i18n="hero.pre">{{ site.data.i18n.en.hero.pre }}</p>
+            <h1 class="hero-title">Ke Xiao</h1>
             <p class="hero-desc" data-i18n="hero.desc">{{ site.data.i18n.en.hero.desc }}</p>
+
             <div class="hero-cta">
-                <a href="#publications" class="btn">View Research</a>
-                <a href="mailto:{{ site.email }}"
-                    style="margin-left: 20px; border-bottom: 1px solid var(--text-secondary);">Contact Me</a>
+                <a href="#featured-research" class="btn btn-primary">
+                    <span data-i18n="hero.cta_primary">{{ site.data.i18n.en.hero.cta_primary }}</span>
+                </a>
+                <a href="mailto:{{ site.email }}" class="btn btn-secondary">
+                    <span data-i18n="hero.cta_secondary">{{ site.data.i18n.en.hero.cta_secondary }}</span>
+                </a>
             </div>
-        </div>
-    </div>
-</section>
 
-<!-- About & Timeline -->
-<section id="about" class="section-pad">
-    <div class="container">
-        <div class="section-header reveal">
-            <h2 class="section-title" data-i18n="about.title">{{ site.data.i18n.en.about.title }}</h2>
-
-
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
-            <div class="reveal">
-                <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 20px;"
-                    data-en="I am currently a PhD student in the KDES Group, School of Computing Science at the University of Glasgow."
-                    data-cn="我目前在格拉斯哥大学计算机学院的 KDES 课题组攻读博士。">
-                    I am currently a PhD student in the <a
-                        href="https://www.gla.ac.uk/schools/computing/research/researchsections/ida-section/knowledgeanddataengineeringsystems/"
-                        class="text-accent">KDES Group</a>, School of Computing Science at the University of Glasgow.
-                </p>
-
-                <p style="font-size: 1.1rem; color: var(--text-secondary);"
-                    data-en="I am dedicated to building robust distributed AI systems. Specifically, my work focuses on creating resilient Federated Learning (FL) frameworks that can withstand availability and security threats. I am also actively exploring distributed machine learning and the fine-tuning of Large Language Models. I have published my findings in leading journals and conferences such as IEEE TMC, IEEE T-IFS and IEEE ICDCS."
-                    data-cn="我致力于构建稳健的分布式 AI 系统，尤其关注能抵御可用性与安全威胁的联邦学习框架。同时探索分布式机器学习与大模型微调，研究成果发表于 IEEE TMC、IEEE T-IFS、IEEE ICDCS 等顶级期刊与会议。">
-                    I am dedicated to building robust distributed AI systems. Specifically, my work focuses on creating
-                    resilient Federated Learning (FL) frameworks that can withstand availability and security threats.
-                    I am also actively exploring distributed machine learning and the fine-tuning of Large Language
-                    Models. I have published my findings in leading journals and conferences such as IEEE TMC, IEEE
-                    T-IFS and IEEE ICDCS.
-                </p>
-
-                <h3 style="margin-top: 40px;" data-i18n="about.interests">{{ site.data.i18n.en.about.interests }}</h3>
-                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                    <span class="badge">Federated Learning</span>
-                    <span class="badge">Edge Computing</span>
-                    <span class="badge">LLM Fine-tuning</span>
-                    <span class="badge">System Resilience</span>
-                    <span class="badge">Byzantine Fault Tolerance</span>
+            <div class="hero-meta">
+                <div class="hero-affiliation">
+                    <span class="meta-label" data-i18n="about.affiliation_label">{{ site.data.i18n.en.about.affiliation_label }}</span>
+                    <a href="https://www.gla.ac.uk/schools/computing/research/researchsections/ida-section/knowledgeanddataengineeringsystems/"
+                        target="_blank" rel="noopener" class="text-link">KDES Group</a>
                 </div>
-            </div>
 
-            <div class="reveal">
-                <h3 style="margin-bottom: 30px;" data-i18n="about.education">{{ site.data.i18n.en.about.education }}
-                </h3>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <span class="timeline-date">2024 - Present</span>
-                        <div class="timeline-role" data-en="PhD Candidate" data-cn="博士研究生">PhD Candidate</div>
-                        <div class="timeline-org" data-en="University of Glasgow" data-cn="格拉斯哥大学">University of Glasgow
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-date">2021 - 2024</span>
-                        <div class="timeline-role" data-en="Master of Computer Technology" data-cn="计算机技术硕士">Master of
-                            Computer Technology</div>
-                        <div class="timeline-org" data-en="Beijing Institute of Technology" data-cn="北京理工大学">Beijing
-                            Institute of Technology</div>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-date">2017 - 2021</span>
-                        <div class="timeline-role" data-en="Bachelor of Software Engineering" data-cn="软件工程学士">Bachelor
-                            of Software Engineering</div>
-                        <div class="timeline-org" data-en="Dalian University of Technology" data-cn="大连理工大学">Dalian
-                            University of Technology</div>
-                    </div>
+                <div class="badge-row">
+                    <span class="badge" data-en="Federated Learning" data-cn="联邦学习">Federated Learning</span>
+                    <span class="badge" data-en="Edge Systems" data-cn="边缘系统">Edge Systems</span>
+                    <span class="badge" data-en="LLM Fine-tuning" data-cn="大模型微调">LLM Fine-tuning</span>
+                    <span class="badge" data-en="System Resilience" data-cn="系统韧性">System Resilience</span>
                 </div>
             </div>
         </div>
-    </div>
-</section>
 
-<!-- News -->
-<section id="news" class="section-pad news-section">
-    <div class="container">
-        <div class="section-header reveal" style="align-items: center;">
-            <h2 class="section-title" data-i18n="news.title">{{ site.data.i18n.en.news.title }}</h2>
-            <span class="news-hint" data-i18n="news.hint">{{ site.data.i18n.en.news.hint }}</span>
-        </div>
-
-        <div class="news-grid">
-            {% assign news_items = site.data.news | sort: 'date' | reverse %}
-
-            {% if news_items and news_items.size > 0 %}
-            {% for item in news_items limit:6 %}
-            <article class="news-card glass-panel reveal">
-                <div class="news-meta">
-                    <span class="news-date">{{ item.date | date: "%b %d, %Y" }}</span>
-                    {% if item.tag %}
-                    <span class="news-tag">{{ item.tag }}</span>
-                    {% endif %}
+        <div class="hero-aside">
+            <article class="portrait-card glass-panel reveal">
+                <div class="portrait-media">
+                    <img src="{{ '/assets/photo/ke_photo.jpg' | relative_url }}" alt="Portrait of Ke Xiao">
                 </div>
-                <h3 class="news-title" data-en="{{ item.title | escape }}"
-                    data-cn="{{ item.title_cn | default: item.title | escape }}">
-                    {{ item.title }}
-                </h3>
-                <p class="news-desc" data-en="{{ item.description | escape }}"
-                    data-cn="{{ item.description_cn | default: item.description | escape }}">
-                    {{ item.description }}
-                </p>
-
+                <div class="portrait-copy">
+                    <p class="mini-label" data-i18n="hero.profile_label">{{ site.data.i18n.en.hero.profile_label }}</p>
+                    <p class="portrait-role" data-en="PhD Candidate · University of Glasgow"
+                        data-cn="博士研究生 · 格拉斯哥大学">PhD Candidate · University of Glasgow</p>
+                </div>
             </article>
-            {% endfor %}
-            {% else %}
-            <p class="news-empty">Stay tuned—updates coming soon.</p>
+
+            {% if featured_pub %}
+            <article class="hero-paper glass-panel reveal">
+                <div class="hero-paper__head">
+                    <span class="mini-label" data-i18n="hero.latest">{{ site.data.i18n.en.hero.latest }}</span>
+                    <span class="hero-paper__year">{{ featured_pub.pub_date }}</span>
+                </div>
+                <h2 class="hero-paper__title">
+                    <a href="{{ featured_pub.url | relative_url }}" data-en="{{ featured_pub.title | escape }}"
+                        data-cn="{{ featured_pub.title_cn | default: featured_pub.title | escape }}">{{ featured_pub.title }}</a>
+                </h2>
+                <p class="hero-paper__venue" data-en="{{ featured_pub.pub | escape }}"
+                    data-cn="{{ featured_pub.pub_cn | default: featured_pub.pub | escape }}">{{ featured_pub.pub }}</p>
+                <a href="{{ featured_pub.url | relative_url }}" class="text-link">
+                    <span data-i18n="featured.details">{{ site.data.i18n.en.featured.details }}</span>
+                </a>
+            </article>
             {% endif %}
         </div>
     </div>
 </section>
 
-<!-- Selected Publications -->
-<section id="publications" class="section-pad" style="background: rgba(255,255,255,0.01);">
+{% if featured_pub %}
+<section id="featured-research" class="section-pad">
     <div class="container">
-        <div class="section-header reveal">
-            <h2 class="section-title" data-i18n="pubs.title">{{ site.data.i18n.en.pubs.title }}</h2>
-            <a href="{{ '/publications.html' | relative_url }}" data-i18n="pubs.view_all">{{
-                site.data.i18n.en.pubs.view_all }}</a>
+        <div class="section-heading reveal">
+            <div>
+                <p class="section-kicker" data-i18n="featured.kicker">{{ site.data.i18n.en.featured.kicker }}</p>
+                <h2 class="section-title" data-i18n="featured.title">{{ site.data.i18n.en.featured.title }}</h2>
+            </div>
         </div>
 
-        <div class="grid-2">
-            {% assign selected_pubs = site.posts | where: "selected", true %}
-            {% for pub in selected_pubs limit:4 %}
-            <article class="pub-card glass-panel reveal">
-                <div class="pub-year">{{ pub.pub_date }}</div>
-                <h3 class="pub-title">
-                    <a href="{{ pub.url | relative_url }}" data-en="{{ pub.title | escape }}"
-                        data-cn="{{ pub.title_cn | default: pub.title | escape }}">{{ pub.title }}</a>
-                </h3>
-                <div class="pub-authors">
-                    {% for author in pub.authors %}
+        <article class="feature-card glass-panel reveal">
+            <div class="feature-card__media">
+                {% if featured_pub.cover %}
+                <img src="{{ featured_pub.cover | relative_url }}" alt="{{ featured_pub.title }}">
+                {% else %}
+                <div class="feature-card__placeholder"></div>
+                {% endif %}
+            </div>
+            <div class="feature-card__body">
+                <div class="feature-card__meta">
+                    <span class="feature-tag">{{ featured_pub.pub_date }}</span>
+                    <span class="feature-venue" data-en="{{ featured_pub.pub | escape }}"
+                        data-cn="{{ featured_pub.pub_cn | default: featured_pub.pub | escape }}">{{ featured_pub.pub }}</span>
+                </div>
+
+                <h3 class="feature-card__title" data-en="{{ featured_pub.title | escape }}"
+                    data-cn="{{ featured_pub.title_cn | default: featured_pub.title | escape }}">{{ featured_pub.title }}</h3>
+
+                <p class="feature-card__authors">
+                    {% for author in featured_pub.authors %}
                     {% if author == "Ke Xiao" %}
-                    <strong style="color: var(--text-primary)">{{ author }}</strong>
+                    <strong>{{ author }}</strong>
                     {% else %}
                     {{ author }}
                     {% endif %}
                     {% unless forloop.last %}, {% endunless %}
                     {% endfor %}
-                </div>
-                <div class="pub-venue" data-en="{{ pub.pub | escape }}"
-                    data-cn="{{ pub.pub_cn | default: pub.pub | escape }}">{{ pub.pub }}</div>
+                </p>
+
+                <p class="feature-card__summary" data-en="{{ featured_pub.abstract | strip_html | strip_newlines | truncate: 300 | escape }}"
+                    data-cn="{{ featured_pub.abstract_cn | default: featured_pub.abstract | strip_html | strip_newlines | truncate: 170 | escape }}">
+                    {{ featured_pub.abstract | strip_html | strip_newlines | truncate: 300 }}
+                </p>
+
                 <div class="pub-links">
-                    {% if pub.pdf %} <a href="{{ pub.pdf }}"><i class="far fa-file-pdf"></i> PDF</a> {% endif %}
-                    {% if pub.code %} <a href="{{ pub.code }}"><i class="fas fa-code"></i> Code</a> {% endif %}
-                    <a href="{{ pub.url | relative_url }}" data-en="Details" data-cn="详情">Details</a>
+                    {% if featured_pub.pdf %}
+                    <a href="{{ featured_pub.pdf }}" target="_blank" rel="noopener">PDF</a>
+                    {% endif %}
+                    {% if featured_pub.code %}
+                    <a href="{{ featured_pub.code }}" target="_blank" rel="noopener">Code</a>
+                    {% endif %}
+                    <a href="{{ featured_pub.url | relative_url }}">
+                        <span data-i18n="featured.details">{{ site.data.i18n.en.featured.details }}</span>
+                    </a>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+{% endif %}
+
+{% if selected_pubs.size > 1 %}
+<section id="publications" class="section-pad">
+    <div class="container">
+        <div class="section-heading reveal">
+            <div>
+                <p class="section-kicker" data-en="Research Archive" data-cn="研究成果">Research Archive</p>
+                <h2 class="section-title" data-i18n="pubs.title">{{ site.data.i18n.en.pubs.title }}</h2>
+            </div>
+            <p class="section-note" data-i18n="pubs.subtitle">{{ site.data.i18n.en.pubs.subtitle }}</p>
+        </div>
+
+        <div class="pub-grid">
+            {% for pub in selected_pubs offset:1 limit:3 %}
+            <article class="pub-card glass-panel reveal">
+                <div class="pub-card__top">
+                    <span class="pub-year">{{ pub.pub_date }}</span>
+                    <span class="pub-badge" data-i18n="pubs.selected">{{ site.data.i18n.en.pubs.selected }}</span>
+                </div>
+
+                <h3 class="pub-title">
+                    <a href="{{ pub.url | relative_url }}" data-en="{{ pub.title | escape }}"
+                        data-cn="{{ pub.title_cn | default: pub.title | escape }}">{{ pub.title }}</a>
+                </h3>
+
+                <p class="pub-authors">
+                    {% for author in pub.authors %}
+                    {% if author == "Ke Xiao" %}
+                    <strong>{{ author }}</strong>
+                    {% else %}
+                    {{ author }}
+                    {% endif %}
+                    {% unless forloop.last %}, {% endunless %}
+                    {% endfor %}
+                </p>
+
+                <p class="pub-venue" data-en="{{ pub.pub | escape }}"
+                    data-cn="{{ pub.pub_cn | default: pub.pub | escape }}">{{ pub.pub }}</p>
+
+                <div class="pub-links">
+                    {% if pub.pdf %}
+                    <a href="{{ pub.pdf }}" target="_blank" rel="noopener">PDF</a>
+                    {% endif %}
+                    {% if pub.code %}
+                    <a href="{{ pub.code }}" target="_blank" rel="noopener">Code</a>
+                    {% endif %}
+                    <a href="{{ pub.url | relative_url }}">
+                        <span data-i18n="pubs.details">{{ site.data.i18n.en.pubs.details }}</span>
+                    </a>
                 </div>
             </article>
             {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section id="news" class="section-pad">
+    <div class="container">
+        <div class="section-heading reveal">
+            <div>
+                <p class="section-kicker" data-en="Timeline" data-cn="动态时间线">Timeline</p>
+                <h2 class="section-title" data-i18n="news.title">{{ site.data.i18n.en.news.title }}</h2>
+            </div>
+            <p class="section-note" data-i18n="news.hint">{{ site.data.i18n.en.news.hint }}</p>
+        </div>
+
+        <div class="news-grid">
+            {% if news_items and news_items.size > 0 %}
+            {% for item in news_items limit:4 %}
+            {% assign tag_cn = item.tag %}
+            {% case item.tag %}
+            {% when 'Publication' %}
+            {% assign tag_cn = site.data.i18n.cn.news.publication_tag %}
+            {% when 'Award' %}
+            {% assign tag_cn = site.data.i18n.cn.news.award_tag %}
+            {% when 'Career' %}
+            {% assign tag_cn = site.data.i18n.cn.news.career_tag %}
+            {% endcase %}
+            <article class="news-card glass-panel reveal">
+                <div class="news-meta">
+                    <span class="news-date">{{ item.date | date: "%b %d, %Y" }}</span>
+                    {% if item.tag %}
+                    <span class="news-tag" data-en="{{ item.tag }}" data-cn="{{ tag_cn }}">{{ item.tag }}</span>
+                    {% endif %}
+                </div>
+                <h3 class="news-title" data-en="{{ item.title | escape }}"
+                    data-cn="{{ item.title_cn | default: item.title | escape }}">{{ item.title }}</h3>
+                <p class="news-desc" data-en="{{ item.description | escape }}"
+                    data-cn="{{ item.description_cn | default: item.description | escape }}">{{ item.description }}</p>
+            </article>
+            {% endfor %}
+            {% else %}
+            <p class="news-empty" data-i18n="news.empty">{{ site.data.i18n.en.news.empty }}</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section id="about" class="section-pad">
+    <div class="container about-grid">
+        <div class="about-copy reveal">
+            <p class="section-kicker" data-en="Profile" data-cn="个人概况">Profile</p>
+            <h2 class="section-title" data-i18n="about.title">{{ site.data.i18n.en.about.title }}</h2>
+
+            <p class="about-lead" data-en="I am a PhD candidate in the KDES Group at the University of Glasgow, working on resilient distributed AI systems."
+                data-cn="我目前是格拉斯哥大学 KDES 团队的博士研究生，主要研究稳健的分布式 AI 系统。">
+                I am a PhD candidate in the KDES Group at the University of Glasgow, working on resilient distributed AI systems.
+            </p>
+
+            <p class="about-body" data-en="My research sits at the intersection of federated learning, edge computing, and large language model fine-tuning. I focus on making learning systems more adaptive, reliable, and secure under resource and threat heterogeneity."
+                data-cn="我的研究位于联邦学习、边缘计算与大语言模型微调的交叉点，重点关注在资源异构与安全威胁并存的环境下，让学习系统更加自适应、可靠且安全。">
+                My research sits at the intersection of federated learning, edge computing, and large language model fine-tuning. I focus on making learning systems more adaptive, reliable, and secure under resource and threat heterogeneity.
+            </p>
+
+            <div class="about-focus glass-panel">
+                <p class="mini-label" data-i18n="about.focus_title">{{ site.data.i18n.en.about.focus_title }}</p>
+                <ul class="focus-list">
+                    <li data-en="Byzantine-resilient federated learning" data-cn="抗拜占庭攻击的联邦学习">Byzantine-resilient federated learning</li>
+                    <li data-en="Heterogeneous fine-tuning for large language models" data-cn="面向大语言模型的异构微调">Heterogeneous fine-tuning for large language models</li>
+                    <li data-en="Robust inference and scheduling in edge environments" data-cn="边缘环境中的稳健推理与调度">Robust inference and scheduling in edge environments</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="about-side reveal">
+            <div class="about-interests glass-panel">
+                <p class="mini-label" data-i18n="about.interests">{{ site.data.i18n.en.about.interests }}</p>
+                <div class="badge-row">
+                    <span class="badge" data-en="Federated Learning" data-cn="联邦学习">Federated Learning</span>
+                    <span class="badge" data-en="Edge Computing" data-cn="边缘计算">Edge Computing</span>
+                    <span class="badge" data-en="LLM Fine-tuning" data-cn="大模型微调">LLM Fine-tuning</span>
+                    <span class="badge" data-en="Distributed AI" data-cn="分布式 AI">Distributed AI</span>
+                    <span class="badge" data-en="System Security" data-cn="系统安全">System Security</span>
+                </div>
+            </div>
+
+            <div class="education-card glass-panel">
+                <p class="mini-label" data-i18n="about.education">{{ site.data.i18n.en.about.education }}</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-date">2024 - Present</span>
+                        <div class="timeline-role" data-en="PhD Candidate" data-cn="博士研究生">PhD Candidate</div>
+                        <div class="timeline-org" data-en="University of Glasgow" data-cn="格拉斯哥大学">University of Glasgow</div>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">2021 - 2024</span>
+                        <div class="timeline-role" data-en="Master of Computer Technology" data-cn="计算机技术硕士">Master of Computer Technology</div>
+                        <div class="timeline-org" data-en="Beijing Institute of Technology" data-cn="北京理工大学">Beijing Institute of Technology</div>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">2017 - 2021</span>
+                        <div class="timeline-role" data-en="Bachelor of Software Engineering" data-cn="软件工程学士">Bachelor of Software Engineering</div>
+                        <div class="timeline-org" data-en="Dalian University of Technology" data-cn="大连理工大学">Dalian University of Technology</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
