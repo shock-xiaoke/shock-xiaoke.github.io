@@ -26,12 +26,15 @@ title: Publications
                 <div style="display: flex; justify-content: space-between; align-items: start;">
                     <div class="pub-year">{{ pub.pub_date }}</div>
                     {% if pub.selected %}
-                    <span
-                        style="font-size: 0.7rem; color: var(--accent); border: 1px solid var(--accent); padding: 2px 6px; border-radius: 4px;">SELECTED</span>
+                    <span style="font-size: 0.7rem; color: var(--accent); border: 1px solid var(--accent); padding: 2px 6px; border-radius: 4px;"
+                        data-en="SELECTED" data-cn="精选">SELECTED</span>
                     {% endif %}
                 </div>
 
-                <h3 class="pub-title"><a href="{{ pub.url | relative_url }}">{{ pub.title }}</a></h3>
+                <h3 class="pub-title">
+                    <a href="{{ pub.url | relative_url }}" data-en="{{ pub.title | escape }}"
+                        data-cn="{{ pub.title_cn | default: pub.title | escape }}">{{ pub.title }}</a>
+                </h3>
 
                 <div class="pub-authors">
                     {% for author in pub.authors %}
@@ -44,11 +47,13 @@ title: Publications
                     {% endfor %}
                 </div>
 
-                <div class="pub-venue">{{ pub.pub }}</div>
+                <div class="pub-venue" data-en="{{ pub.pub | escape }}"
+                    data-cn="{{ pub.pub_cn | default: pub.pub | escape }}">{{ pub.pub }}</div>
 
                 <div class="pub-links">
                     {% if pub.pdf %} <a href="{{ pub.pdf }}"><i class="far fa-file-pdf"></i> PDF</a> {% endif %}
-                    <a href="{{ pub.url | relative_url }}">Read More &rarr;</a>
+                    <a href="{{ pub.url | relative_url }}" data-en="Read More &rarr;"
+                        data-cn="查看详情 &rarr;">Read More &rarr;</a>
                 </div>
             </article>
             {% endfor %}

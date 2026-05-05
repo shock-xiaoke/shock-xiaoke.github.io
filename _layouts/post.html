@@ -8,13 +8,16 @@ layout: default
 
             <!-- Back Link -->
             <a href="{{ '/publications.html' | relative_url }}"
-                style="color: var(--text-secondary); display: inline-block; margin-bottom: 30px;">
+                style="color: var(--text-secondary); display: inline-block; margin-bottom: 30px;"
+                data-en="<i class='fas fa-arrow-left'></i> Back to Publications"
+                data-cn="<i class='fas fa-arrow-left'></i> 返回论文列表">
                 <i class="fas fa-arrow-left"></i> Back to Publications
             </a>
 
             <!-- Header -->
             <div class="glass-panel" style="padding: 40px; margin-bottom: 40px;">
-                <h1 style="font-size: 2rem; margin-bottom: 20px; line-height: 1.3;">{{ page.title }}</h1>
+                <h1 style="font-size: 2rem; margin-bottom: 20px; line-height: 1.3;" data-en="{{ page.title | escape }}"
+                    data-cn="{{ page.title_cn | default: page.title | escape }}">{{ page.title }}</h1>
 
                 <div style="margin-bottom: 20px; color: var(--text-secondary);">
                     {% for author in page.authors %}
@@ -29,8 +32,9 @@ layout: default
                 </div>
 
                 <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; margin-top: 20px;">
-                    <span
-                        style="background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 4px; font-weight: 600;">
+                    <span style="background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 4px; font-weight: 600;"
+                        data-en="{{ page.pub | append: ' (' | append: page.pub_date | append: ')' | escape }}"
+                        data-cn="{{ page.pub_cn | default: page.pub | append: '（' | append: page.pub_date | append: '）' | escape }}">
                         {{ page.pub }} ({{ page.pub_date }})
                     </span>
 
@@ -48,12 +52,15 @@ layout: default
 
             <!-- Content / Abstract -->
             <div class="glass-panel" style="padding: 40px;">
-                <h3
-                    style="margin-bottom: 20px; color: var(--text-secondary); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+                <h3 style="margin-bottom: 20px; color: var(--text-secondary); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;"
+                    data-en="Abstract / Description" data-cn="摘要 / 简介">
                     Abstract / Description</h3>
                 <div style="font-size: 1.1rem; line-height: 1.8; color: #d1d1d1;">
                     {% if page.abstract %}
-                    {{ page.abstract }}
+                    <div data-en="{{ page.abstract | escape }}"
+                        data-cn="{{ page.abstract_cn | default: page.abstract | escape }}">
+                        {{ page.abstract }}
+                    </div>
                     {% else %}
                     {{ content }}
                     {% endif %}

@@ -140,7 +140,10 @@ title: Home
             {% for pub in selected_pubs limit:4 %}
             <article class="pub-card glass-panel reveal">
                 <div class="pub-year">{{ pub.pub_date }}</div>
-                <h3 class="pub-title"><a href="{{ pub.url | relative_url }}">{{ pub.title }}</a></h3>
+                <h3 class="pub-title">
+                    <a href="{{ pub.url | relative_url }}" data-en="{{ pub.title | escape }}"
+                        data-cn="{{ pub.title_cn | default: pub.title | escape }}">{{ pub.title }}</a>
+                </h3>
                 <div class="pub-authors">
                     {% for author in pub.authors %}
                     {% if author == "Ke Xiao" %}
@@ -151,11 +154,12 @@ title: Home
                     {% unless forloop.last %}, {% endunless %}
                     {% endfor %}
                 </div>
-                <div class="pub-venue">{{ pub.pub }}</div>
+                <div class="pub-venue" data-en="{{ pub.pub | escape }}"
+                    data-cn="{{ pub.pub_cn | default: pub.pub | escape }}">{{ pub.pub }}</div>
                 <div class="pub-links">
                     {% if pub.pdf %} <a href="{{ pub.pdf }}"><i class="far fa-file-pdf"></i> PDF</a> {% endif %}
                     {% if pub.code %} <a href="{{ pub.code }}"><i class="fas fa-code"></i> Code</a> {% endif %}
-                    <a href="{{ pub.url | relative_url }}">Details</a>
+                    <a href="{{ pub.url | relative_url }}" data-en="Details" data-cn="详情">Details</a>
                 </div>
             </article>
             {% endfor %}

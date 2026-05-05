@@ -1,16 +1,22 @@
+- date: 2026-04-30
+  title: Paper accepted to ICML 2026!
+  title_cn: "论文被 ICML 2026 接收！"
+  description: "Federated Fine-tuning, Large Language Models, Parameter-Efficient Fine-tuning, Heterogeneous Resources."
+  description_cn: "《联邦微调、大语言模型、参数高效微调与异构资源》被 ICML 2026 接收。"
+  tag: Publication
+
 - date: 2025-12-11
   title: Paper accepted to IEEE T-IFS!
   title_cn: "论文被 IEEE T-IFS 接收！"
   description: "FLgym: Towards Robust and Byzantine-Resilient Federated Learning."
   description_cn: "FLgym: Towards Robust and Byzantine-Resilient Federated Learning."
   tag: Publication
-  # url: https://github.com/example/repo
 
 - date: 2025-07-22
   title: Best Runner-Up Student Paper Award at IEEE ICDCS 2025!
-  title_cn: "荣获ICDCS 2025的Best Runner-Up Student Paper奖！"
-  description: Received for research on Byzantine-resilient FL.
-  description_cn: "关于拜占庭容错联邦学习的研究的成果"
+  title_cn: "荣获 ICDCS 2025 Best Runner-Up Student Paper 奖！"
+  description: "Received for research on Byzantine-resilient FL."
+  description_cn: "因拜占庭容错联邦学习研究成果获奖。"
   tag: Award
 
 - date: 2025-03-27
@@ -37,8 +43,8 @@
 - date: 2024-10-01
   title: Joined University of Glasgow!
   title_cn: "加入格拉斯哥大学！"
-  description: Joined the KDES family in the School of Computing.
-  description_cn: "加入 UofG 计算学院的 KDES 团队"
+  description: "Joined the KDES family in the School of Computing."
+  description_cn: "加入 UofG 计算机学院的 KDES 团队。"
   tag: Career
 
 - date: 2024-01-17
