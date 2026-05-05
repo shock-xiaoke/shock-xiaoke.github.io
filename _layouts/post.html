@@ -13,11 +13,11 @@ layout: default
             <div class="paper-meta">
                 <span class="feature-tag">{{ page.pub_date }}</span>
                 <span class="paper-venue-pill" data-en="{{ page.pub | escape }}"
-                    data-cn="{{ page.pub_cn | default: page.pub | escape }}">{{ page.pub }}</span>
+                    data-cn="{{ page.pub | escape }}">{{ page.pub }}</span>
             </div>
 
             <h1 class="paper-title" data-en="{{ page.title | escape }}"
-                data-cn="{{ page.title_cn | default: page.title | escape }}">{{ page.title }}</h1>
+                data-cn="{{ page.title | escape }}">{{ page.title }}</h1>
 
             <p class="paper-authors">
                 {% for author in page.authors %}
