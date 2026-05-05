@@ -1,8 +1,8 @@
 - date: 2026-04-30
   title: Paper accepted to ICML 2026!
   title_cn: "论文被 ICML 2026 接收！"
-  description: "Federated Fine-tuning, Large Language Models, Parameter-Efficient Fine-tuning, Heterogeneous Resources."
-  description_cn: "《联邦微调、大语言模型、参数高效微调与异构资源》被 ICML 2026 接收。"
+  description: "FedHera: Towards Drift-Resilient Federated Fine-tuning with Heterogeneous Resources."
+  description_cn: "FedHera: Towards Drift-Resilient Federated Fine-tuning with Heterogeneous Resources."
   tag: Publication
 
 - date: 2025-12-11
