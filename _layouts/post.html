@@ -57,7 +57,17 @@ layout: default
 
             {% if page.cover %}
             <figure class="paper-figure glass-panel reveal">
-                <img src="{{ page.cover | relative_url }}" alt="{{ page.title }}">
+                <div class="paper-figure__viewport" data-drag-scroll tabindex="0"
+                    data-aria-en="Drag to explore the full figure"
+                    data-aria-cn="拖动查看完整图片">
+                    <div class="paper-figure__surface">
+                        <img src="{{ page.cover | relative_url }}" alt="{{ page.title }}">
+                    </div>
+                </div>
+                <figcaption class="paper-figure__hint" data-en="Drag or swipe inside the frame to inspect the full figure."
+                    data-cn="在图框内拖动或滑动，以查看完整图片。">
+                    Drag or swipe inside the frame to inspect the full figure.
+                </figcaption>
             </figure>
             {% endif %}
         </div>

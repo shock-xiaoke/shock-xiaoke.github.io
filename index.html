@@ -42,13 +42,16 @@ title: Home
 
         <div class="hero-aside">
             <article class="portrait-card glass-panel reveal">
-                <div class="portrait-media">
+                <div class="portrait-media" tabindex="0" data-aria-en="Expand portrait preview"
+                    data-aria-cn="展开照片预览">
                     <img src="{{ '/assets/photo/ke_photo.jpg' | relative_url }}" alt="Portrait of Ke Xiao">
                 </div>
                 <div class="portrait-copy">
                     <p class="mini-label" data-i18n="hero.profile_label">{{ site.data.i18n.en.hero.profile_label }}</p>
                     <p class="portrait-role" data-en="PhD Candidate · University of Glasgow"
                         data-cn="博士研究生 · 格拉斯哥大学">PhD Candidate · University of Glasgow</p>
+                    <p class="portrait-hint" data-en="Hover or focus the photo to expand it."
+                        data-cn="将鼠标悬停在照片上，或聚焦后展开查看。">Hover or focus the photo to expand it.</p>
                 </div>
             </article>
 
@@ -83,14 +86,7 @@ title: Home
             </div>
         </div>
 
-        <article class="feature-card glass-panel reveal">
-            <div class="feature-card__media">
-                {% if featured_pub.cover %}
-                <img src="{{ featured_pub.cover | relative_url }}" alt="{{ featured_pub.title }}">
-                {% else %}
-                <div class="feature-card__placeholder"></div>
-                {% endif %}
-            </div>
+        <article class="feature-card feature-card--text glass-panel reveal">
             <div class="feature-card__body">
                 <div class="feature-card__meta">
                     <span class="feature-tag">{{ featured_pub.pub_date }}</span>
@@ -112,6 +108,8 @@ title: Home
                     {% endfor %}
                 </p>
 
+                <p class="mini-label feature-card__label" data-i18n="featured.summary_label">{{
+                    site.data.i18n.en.featured.summary_label }}</p>
                 <p class="feature-card__summary" data-en="{{ featured_pub.abstract | strip_html | strip_newlines | truncate: 300 | escape }}"
                     data-cn="{{ featured_pub.abstract_cn | default: featured_pub.abstract | strip_html | strip_newlines | truncate: 170 | escape }}">
                     {{ featured_pub.abstract | strip_html | strip_newlines | truncate: 300 }}
