@@ -172,6 +172,16 @@
                 let startY = 0;
                 let originLeft = 0;
                 let originTop = 0;
+                const image = viewport.querySelector('img');
+
+                const syncFigureFit = () => {
+                    if (!image || !image.naturalWidth || !viewport.clientWidth || !viewport.clientHeight) return;
+                    const imageRatio = image.naturalWidth / image.naturalHeight;
+                    const viewportRatio = viewport.clientWidth / viewport.clientHeight;
+                    const fitHeight = imageRatio >= viewportRatio;
+                    viewport.classList.toggle('fit-height', fitHeight);
+                    viewport.classList.toggle('fit-width', !fitHeight);
+                };
 
                 const stopDrag = (pointerId) => {
                     active = false;
@@ -218,6 +228,15 @@
                     }
                     event.preventDefault();
                 });
+
+                if (image) {
+                    if (image.complete) {
+                        syncFigureFit();
+                    } else {
+                        image.addEventListener('load', syncFigureFit, { once: true });
+                    }
+                    window.addEventListener('resize', syncFigureFit);
+                }
             });
 
             if (window.gsap && !reduceMotion) {

@@ -6,6 +6,7 @@ title: Home
 {% assign selected_pubs = site.posts | where: "selected", true | sort: "date" | reverse %}
 {% assign featured_pub = selected_pubs.first %}
 {% assign news_items = site.data.news | sort: "date" | reverse %}
+{% assign latest_news = news_items.first %}
 
 <section class="hero hero-home">
     <div class="hero-glow" data-hero-glow aria-hidden="true"></div>
@@ -55,20 +56,29 @@ title: Home
                 </div>
             </article>
 
-            {% if featured_pub %}
+            {% if latest_news %}
+            {% assign latest_news_tag_cn = latest_news.tag %}
+            {% case latest_news.tag %}
+            {% when 'Publication' %}
+            {% assign latest_news_tag_cn = site.data.i18n.cn.news.publication_tag %}
+            {% when 'Award' %}
+            {% assign latest_news_tag_cn = site.data.i18n.cn.news.award_tag %}
+            {% when 'Career' %}
+            {% assign latest_news_tag_cn = site.data.i18n.cn.news.career_tag %}
+            {% endcase %}
             <article class="hero-paper glass-panel reveal">
                 <div class="hero-paper__head">
-                    <span class="mini-label" data-i18n="hero.latest">{{ site.data.i18n.en.hero.latest }}</span>
-                    <span class="hero-paper__year">{{ featured_pub.pub_date }}</span>
+                    <span class="mini-label" data-en="Latest News" data-cn="最新动态">Latest News</span>
+                    <span class="hero-paper__year">{{ latest_news.date | date: "%b %d, %Y" }}</span>
                 </div>
-                <h2 class="hero-paper__title">
-                    <a href="{{ featured_pub.url | relative_url }}" data-en="{{ featured_pub.title | escape }}"
-                        data-cn="{{ featured_pub.title_cn | default: featured_pub.title | escape }}">{{ featured_pub.title }}</a>
-                </h2>
-                <p class="hero-paper__venue" data-en="{{ featured_pub.pub | escape }}"
-                    data-cn="{{ featured_pub.pub_cn | default: featured_pub.pub | escape }}">{{ featured_pub.pub }}</p>
-                <a href="{{ featured_pub.url | relative_url }}" class="text-link">
-                    <span data-i18n="featured.details">{{ site.data.i18n.en.featured.details }}</span>
+                <span class="news-tag hero-paper__tag" data-en="{{ latest_news.tag }}"
+                    data-cn="{{ latest_news_tag_cn }}">{{ latest_news.tag }}</span>
+                <h2 class="hero-paper__title" data-en="{{ latest_news.title | escape }}"
+                    data-cn="{{ latest_news.title_cn | default: latest_news.title | escape }}">{{ latest_news.title }}</h2>
+                <p class="hero-update__desc" data-en="{{ latest_news.description | escape }}"
+                    data-cn="{{ latest_news.description_cn | default: latest_news.description | escape }}">{{ latest_news.description }}</p>
+                <a href="#news" class="text-link">
+                    <span data-en="View Timeline" data-cn="查看动态">View Timeline</span>
                 </a>
             </article>
             {% endif %}
@@ -94,8 +104,10 @@ title: Home
                         data-cn="{{ featured_pub.pub_cn | default: featured_pub.pub | escape }}">{{ featured_pub.pub }}</span>
                 </div>
 
-                <h3 class="feature-card__title" data-en="{{ featured_pub.title | escape }}"
-                    data-cn="{{ featured_pub.title_cn | default: featured_pub.title | escape }}">{{ featured_pub.title }}</h3>
+                <h3 class="feature-card__title">
+                    <a href="{{ featured_pub.url | relative_url }}" data-en="{{ featured_pub.title | escape }}"
+                        data-cn="{{ featured_pub.title_cn | default: featured_pub.title | escape }}">{{ featured_pub.title }}</a>
+                </h3>
 
                 <p class="feature-card__authors">
                     {% for author in featured_pub.authors %}
