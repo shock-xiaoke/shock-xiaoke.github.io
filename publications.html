@@ -68,6 +68,10 @@ title: Publications
                     {% if pub.code %}
                     <a href="{{ pub.code }}" target="_blank" rel="noopener">Code</a>
                     {% endif %}
+                    {% if pub.project %}
+                    <a href="{{ pub.project }}" target="_blank" rel="noopener" data-en="Project"
+                        data-cn="项目主页">Project</a>
+                    {% endif %}
                     <a href="{{ pub.url | relative_url }}">
                         <span data-i18n="pubs.read_more">{{ site.data.i18n.en.pubs.read_more }}</span>
                     </a>

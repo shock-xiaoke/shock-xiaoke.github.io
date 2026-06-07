@@ -727,6 +727,7 @@ main {
 
 .about-focus,
 .about-interests,
+.service-card,
 .education-card {
     padding: 24px;
 }
@@ -763,6 +764,12 @@ main {
 .about-side {
     display: grid;
     gap: 18px;
+}
+
+.service-copy {
+    margin-top: 12px;
+    color: var(--text-secondary);
+    font-size: 0.98rem;
 }
 
 .timeline {
@@ -1158,6 +1165,7 @@ button:focus-visible {
     .news-card,
     .about-focus,
     .about-interests,
+    .service-card,
     .education-card {
         padding: 22px;
     }

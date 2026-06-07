@@ -122,9 +122,11 @@ title: Home
 
                 <p class="mini-label feature-card__label" data-i18n="featured.summary_label">{{
                     site.data.i18n.en.featured.summary_label }}</p>
-                <p class="feature-card__summary" data-en="{{ featured_pub.abstract | strip_html | strip_newlines | truncate: 300 | escape }}"
-                    data-cn="{{ featured_pub.abstract_cn | default: featured_pub.abstract | strip_html | strip_newlines | truncate: 170 | escape }}">
-                    {{ featured_pub.abstract | strip_html | strip_newlines | truncate: 300 }}
+                {% assign featured_summary = featured_pub.summary | default: featured_pub.abstract | default: featured_pub.excerpt %}
+                {% assign featured_summary_cn = featured_pub.summary_cn | default: featured_pub.abstract_cn | default: featured_summary %}
+                <p class="feature-card__summary" data-en="{{ featured_summary | strip_html | strip_newlines | truncate: 300 | escape }}"
+                    data-cn="{{ featured_summary_cn | strip_html | strip_newlines | truncate: 170 | escape }}">
+                    {{ featured_summary | strip_html | strip_newlines | truncate: 300 }}
                 </p>
 
                 <div class="pub-links">
@@ -133,6 +135,10 @@ title: Home
                     {% endif %}
                     {% if featured_pub.code %}
                     <a href="{{ featured_pub.code }}" target="_blank" rel="noopener">Code</a>
+                    {% endif %}
+                    {% if featured_pub.project %}
+                    <a href="{{ featured_pub.project }}" target="_blank" rel="noopener" data-en="Project"
+                        data-cn="项目主页">Project</a>
                     {% endif %}
                     <a href="{{ featured_pub.url | relative_url }}">
                         <span data-i18n="featured.details">{{ site.data.i18n.en.featured.details }}</span>
@@ -188,6 +194,10 @@ title: Home
                     {% endif %}
                     {% if pub.code %}
                     <a href="{{ pub.code }}" target="_blank" rel="noopener">Code</a>
+                    {% endif %}
+                    {% if pub.project %}
+                    <a href="{{ pub.project }}" target="_blank" rel="noopener" data-en="Project"
+                        data-cn="项目主页">Project</a>
                     {% endif %}
                     <a href="{{ pub.url | relative_url }}">
                         <span data-i18n="pubs.details">{{ site.data.i18n.en.pubs.details }}</span>
@@ -278,6 +288,15 @@ title: Home
                     <span class="badge" data-en="Distributed AI" data-cn="分布式 AI">Distributed AI</span>
                     <span class="badge" data-en="System Security" data-cn="系统安全">System Security</span>
                 </div>
+            </div>
+
+            <div class="service-card glass-panel">
+                <p class="mini-label" data-en="Academic Service" data-cn="学术服务">Academic Service</p>
+                <p class="service-copy"
+                    data-en="Reviewer for journals including IEEE TMC, Computer Communications, and Computer Networks."
+                    data-cn="担任 IEEE TMC、Computer Communications、Computer Networks 等期刊审稿人。">
+                    Reviewer for journals including IEEE TMC, Computer Communications, and Computer Networks.
+                </p>
             </div>
 
             <div class="education-card glass-panel">
